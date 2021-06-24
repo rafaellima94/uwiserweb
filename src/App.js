@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import LoginScreen from './screens/LoginScreen'
+import DashboardScreen from './screens/DashboardScreen'
+// import ReportsScreen from './screens/ReportsScreen'
+// import InterpretersScreen from './screens/InterpretersScreen'
+// import UsersScreen from './screens/UsersScreen'
+// import AdminsScreen from './screens/AdminsScreen'
 
-function App() {
+import './App.css'
+
+const routes = [
+  {
+    path: '/',
+    component: LoginScreen
+  },
+  {
+    path: '/Dashboard',
+    component: DashboardScreen
+  },
+  // {
+  //   path: '/Reports',
+  //   component: ReportsScreen
+  // },
+  // {
+  //   path: '/Interpreters',
+  //   component: InterpretersScreen
+  // },
+  // {
+  //   path: '/Users',
+  //   component: UsersScreen
+  // },
+  // {
+  //   path: '/Admins',
+  //   component: AdminsScreen
+  // },
+];
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className='App'>
+        <Switch>
+          {routes.map((route) => (
+            <Route
+              exact
+              key={route.path}
+              path={route.path}
+              component={route.component}
+            />
+          ))}
+        </Switch>
+      </div>
+    </Router>
   );
 }
-
-export default App;

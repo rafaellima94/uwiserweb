@@ -1,5 +1,8 @@
 .App {
-  text-align: center;
+  color: #000000de;
+  background-color: rgba(255, 255, 255, 0.4);
+  min-height: 100vh;
+  display: flex;
 }
 
 .App-logo {
@@ -35,4 +38,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+div[role="table"] {
+  height: auto !important;
 }
