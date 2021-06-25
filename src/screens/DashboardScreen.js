@@ -84,33 +84,8 @@ export default class DashboardScreen extends React.Component {
         super(props);
 
         this.state = {
-            redirect: localStorage.getItem('TOKEN') == null,
-            showModal: false,
-            loading: false,
-            action: '',
-            teacher: '',
-            initial_date: '',
-            final_date: '',
-            audits: [],
-            modalAction: '',
-            modalTitle: '',
-            modalDescription: '',
-            modalTeacher: '',
-            modalStudent: '',
-            modalDate: '',
+            redirect: localStorage.getItem('TOKEN_UWISER') == null,
         }
-    }
-
-    componentDidMount() {
-        this.setState({ loading: true });
-        this.handleGet();
-    }
-
-    handleChange = (event) => {
-        this.setState({ [event.target.name]: event.target.value });
-    }
-
-    handleGet = () => {
     }
 
     render() {
