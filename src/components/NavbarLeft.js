@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import ButtonLink from './ButtonLink'
 import Dashboard from '../assets/dashboard_icon.png'
 import Calls from '../assets/calls_icon.png'
