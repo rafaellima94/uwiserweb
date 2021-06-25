@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import ReactModal from 'react-modal'
 import axios from 'axios'
 import Input from '../components/InputText'
-import Button from '../components/ButtonRounded'
+import ButtonRounded from '../components/ButtonRounded'
 import banner from '../assets/uwiser_banner.png'
 import background from '../assets/home_background.jpg'
 import { Close } from '@styled-icons/evaicons-solid/Close'
@@ -195,7 +195,7 @@ class LoginScreen extends React.Component {
                 <Input type='password' placeholder='Senha' name='password' value={password} change={this.handleChange} required='required' />
                 {error && <Error>E-mail ou senha inválidos</Error>}
                 <ButtonRecovery onClick={this.handleOpenModal}>Esqueci minha senha</ButtonRecovery>
-                <Button type='button' title='entrar' click={this.handleLogin} />
+                <ButtonRounded type='button' title='entrar' click={this.handleLogin} />
                 <ReactModal
                     isOpen={this.state.showModal}
                     style={modalStyles}
@@ -203,7 +203,7 @@ class LoginScreen extends React.Component {
                     onRequestClose={this.handleCloseModal}>
                     <ModalHeader>
                         <ModalTitle>Recuperar Senha</ModalTitle>
-                        <Button outlined='#1C4370' title={<CloseIcon />} click={this.handleCloseModal} />
+                        <ButtonRounded outlined='#1C4370' title={<CloseIcon />} click={this.handleCloseModal} />
                     </ModalHeader>
                     <ModalBody>
                         <ModalBodyText>Insira seu e-mail para lhe enviarmos as novas credenciais</ModalBodyText>
@@ -212,8 +212,8 @@ class LoginScreen extends React.Component {
                         {successRecovery && <Success>E-mail enviado com sucesso.</Success>}
                     </ModalBody>
                     <ModalFooter>
-                        <Button outlined='#1C4370' type='button' title='cancelar' click={this.handleCloseModal} />
-                        <Button type='button' title='enviar' click={this.handleRecovery} />
+                        <ButtonRounded outlined='#1C4370' type='button' title='cancelar' click={this.handleCloseModal} />
+                        <ButtonRounded type='button' title='enviar' click={this.handleRecovery} />
                     </ModalFooter>
                 </ReactModal>
             </Container>

@@ -1,8 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Redirect } from 'react-router-dom'
-import axios from 'axios'
-import NavbarTop from '../components/NavbarFixedTop'
+import NavbarFixedTop from '../components/NavbarFixedTop'
 import NavbarLeft from '../components/NavbarLeft'
 import Users from '../assets/users_icon.png'
 import Interpreters from '../assets/interpreters_icon.png'
@@ -122,7 +121,7 @@ export default class DashboardScreen extends React.Component {
         } else {
             return (
                 <Container style={{background: '#E1E1E1'}}>
-                    <NavbarTop />
+                    <NavbarFixedTop />
                     <NavbarLeft />
                     <Content>
                         <CardTitle>DASHBOARD</CardTitle>

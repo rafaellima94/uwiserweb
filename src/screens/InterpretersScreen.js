@@ -6,9 +6,9 @@ import HashLoader from 'react-spinners/HashLoader'
 import DataTable from 'react-data-table-component'
 import ReactModal from 'react-modal'
 import axios from 'axios'
-import NavbarTop from '../components/NavbarFixedTop'
+import NavbarFixedTop from '../components/NavbarFixedTop'
 import NavbarLeft from '../components/NavbarLeft'
-import Button from '../components/ButtonRounded'
+import ButtonRounded from '../components/ButtonRounded'
 import Input from '../components/InputText'
 import { Plus } from '@styled-icons/boxicons-regular/Plus'
 import { Close } from '@styled-icons/evaicons-solid/Close'
@@ -440,7 +440,7 @@ export default class InterpretersScreen extends React.Component {
             {
                 width: '60px',
                 selector: 'edit',
-                cell: row => <Button padding='10px' outlined='#1C4370' title={<PencilIcon />} click={() => this.handleOpenModal(row)} />,
+                cell: row => <ButtonRounded padding='10px' outlined='#1C4370' title={<PencilIcon />} click={() => this.handleOpenModal(row)} />,
                 ignoreRowClick: true,
                 allowOverflow: true,
                 button: true,
@@ -448,7 +448,7 @@ export default class InterpretersScreen extends React.Component {
             {
                 width: '60px',
                 selector: 'remove',
-                cell: row => <Button padding='10px' outlined='#C1272D' title={<TrashIcon />} click={() => this.handleOpenConfirmationModal(row)} />,
+                cell: row => <ButtonRounded padding='10px' outlined='#C1272D' title={<TrashIcon />} click={() => this.handleOpenConfirmationModal(row)} />,
                 ignoreRowClick: true,
                 allowOverflow: true,
                 button: true,
@@ -460,7 +460,7 @@ export default class InterpretersScreen extends React.Component {
         } else {
             return (
                 <Container style={{background: '#E1E1E1'}}>
-                    <NavbarTop />
+                    <NavbarFixedTop />
                     <NavbarLeft />
                     <Content>
                         <Row>
@@ -468,7 +468,7 @@ export default class InterpretersScreen extends React.Component {
                                 <span>INTERPRETERS</span>
                                 <Grow />
                                 <Input type='text' placeholder='&#128269; Search' name='search' value={search} change={this.handleSearch} />
-                                <Button type='button' title={<PlusIcon />} color={'#5CB5E9'} click={() => this.handleOpenModal()} />
+                                <ButtonRounded type='button' title={<PlusIcon />} color={'#5CB5E9'} click={() => this.handleOpenModal()} />
                             </CardTitle>
                         </Row>
                         <CardContainer>
@@ -498,7 +498,7 @@ export default class InterpretersScreen extends React.Component {
                         onRequestClose={this.handleCloseModal}>
                         <ModalHeader>
                             <ModalTitle>Create Interpreter</ModalTitle>
-                            <Button outlined='#1C4370' title={<CloseIcon />} click={this.handleCloseModal} />
+                            <ButtonRounded outlined='#1C4370' title={<CloseIcon />} click={this.handleCloseModal} />
                         </ModalHeader>
                         <ModalBody>
                             <Input type='text' placeholder='Nome' name='name' value={name} change={this.handleChange} required='required' />
@@ -537,7 +537,7 @@ export default class InterpretersScreen extends React.Component {
                             {create && <Input type='password' placeholder='Password' name='password' value={password} change={this.handleChange} required='required' />}
                             {error && <Error>E-mail já cadastrado.</Error>}
                             <PasswordInfo>* Senha será enviada por e-mail</PasswordInfo>
-                            <Button title='save' click={this.handleRequest} />
+                            <ButtonRounded title='save' click={this.handleRequest} />
                         </ModalBody>
                     </ReactModal>
                     <ReactModal
@@ -547,14 +547,14 @@ export default class InterpretersScreen extends React.Component {
                         onRequestClose={this.handleCloseConfirmationModal}>
                         <ModalHeader>
                             <ModalTitle>Delete Interpreter</ModalTitle>
-                            <Button outlined='#1C4370' title={<CloseIcon />} click={this.handleCloseConfirmationModal} />
+                            <ButtonRounded outlined='#1C4370' title={<CloseIcon />} click={this.handleCloseConfirmationModal} />
                         </ModalHeader>
                         <ModalBody>
                             <h3>Você deseja realmente remover o usuário {name}</h3>
                         </ModalBody>
                         <ModalFooter>
-                            <Button type='button' title='cancel' click={this.handleCloseConfirmationModal} />
-                            <Button type='submit' title='delete' click={this.handleDelete} />
+                            <ButtonRounded type='button' title='cancel' click={this.handleCloseConfirmationModal} />
+                            <ButtonRounded type='submit' title='delete' click={this.handleDelete} />
                         </ModalFooter>
                     </ReactModal>
                 </Container>

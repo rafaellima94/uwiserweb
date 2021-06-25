@@ -5,10 +5,10 @@ import { css } from '@emotion/react'
 import HashLoader from 'react-spinners/HashLoader'
 import DataTable from 'react-data-table-component'
 import axios from 'axios'
-import NavbarTop from '../components/NavbarFixedTop'
+import NavbarFixedTop from '../components/NavbarFixedTop'
 import NavbarLeft from '../components/NavbarLeft'
 import Input from '../components/InputText'
-import Button from '../components/ButtonRounded'
+import ButtonRounded from '../components/ButtonRounded'
 import play from '../assets/play_icon.png'
 import playOff from '../assets/play_off_icon.png'
 
@@ -331,7 +331,7 @@ export default class CallsScreen extends React.Component {
         } else {
             return (
                 <Container style={{ background: '#E1E1E1' }}>
-                    <NavbarTop />
+                    <NavbarFixedTop />
                     <NavbarLeft />
                     <Content>
                         <CardTitle>CALLS</CardTitle>
@@ -368,7 +368,7 @@ export default class CallsScreen extends React.Component {
                                     }
                                 </Select>
                             </InputContainer>
-                            <Button type='button' title='filtrar' click={this.handleGetFilter} />
+                            <ButtonRounded type='button' title='filtrar' click={this.handleGetFilter} />
                         </CardContainer>
                         <CardContainer>
                             <Row>

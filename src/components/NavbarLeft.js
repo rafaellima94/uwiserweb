@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import Button from './ButtonLink'
+import ButtonLink from './ButtonLink'
 import Dashboard from '../assets/dashboard_icon.png'
 import Calls from '../assets/calls_icon.png'
 import Interpreters from '../assets/interpreters_icon.png'
@@ -37,12 +37,12 @@ export default class NavbarLeft extends React.Component {
     render() {
         return (
             <Navbar>
-                <Button to='/Dashboard' title='Dashboard' icon={<Icon src={Dashboard} />} />
-                <Button to='/Calls' title='Calls' icon={<Icon src={Calls} />} />
-                <Button to='/Interpreters' title='Interpreters' icon={<Icon src={Interpreters} />} />
-                <Button to='/Users' title='Users' icon={<Icon src={Users} />} />
-                <Button to='/Admins' title='Admins' icon={<Icon src={Admins} />} />
-                <Button to='/' title='Sair' icon={<Icon src={Exit} />} click={() => {
+                <ButtonLink to='/Dashboard' title='Dashboard' icon={<Icon src={Dashboard} />} />
+                <ButtonLink to='/Calls' title='Calls' icon={<Icon src={Calls} />} />
+                <ButtonLink to='/Interpreters' title='Interpreters' icon={<Icon src={Interpreters} />} />
+                <ButtonLink to='/Users' title='Users' icon={<Icon src={Users} />} />
+                <ButtonLink to='/Admins' title='Admins' icon={<Icon src={Admins} />} />
+                <ButtonLink to='/' title='Sair' icon={<Icon src={Exit} />} click={() => {
                     localStorage.removeItem('TOKEN_UWISER');
                     localStorage.removeItem('USER_ID_UWISER');
                     localStorage.removeItem('NAME_UWISER');
