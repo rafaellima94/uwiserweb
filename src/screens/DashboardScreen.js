@@ -31,6 +31,7 @@ const CardTitle = styled.div`
     border-color: #1C4370;
     border-radius: 6px;
     color: #fff;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12) !important;
 `;
 
 const CardContainer = styled.div`
@@ -49,10 +50,10 @@ const InfoCardContainer = styled.div`
     border-radius: 6px;
     margin: 20px;
     align-items: center;
-    justify-content: center;
     flex-direction: row;
-    width: 400px;
-    height: 140px;
+    width: 360px;
+    height: 100px;
+    padding: 40px;
 `;
 
 const Row = styled.div`
@@ -111,23 +112,6 @@ export default class DashboardScreen extends React.Component {
     }
 
     handleGet = () => {
-        this.setState({ loading: true });
-        var URL = `${process.env.REACT_APP_API_URL}/api/Audit/${localStorage.getItem('CITY_ID')}`;
-
-        axios.get(URL,
-            {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('TOKEN')
-                }
-            })
-            .then(res => {
-                this.setState({
-                    audits: res.data,
-                    loading: false,
-                });
-            }).catch(err => {
-                this.setState({ loading: false });
-            });
     }
 
     render() {
@@ -137,7 +121,7 @@ export default class DashboardScreen extends React.Component {
             return <Redirect to="/" />
         } else {
             return (
-                <Container>
+                <Container style={{background: '#E1E1E1'}}>
                     <NavbarTop />
                     <NavbarLeft />
                     <Content>

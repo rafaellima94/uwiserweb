@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const Button = styled.button`
     display: inline-flex;
     height: 36px;
-    padding: 24px;
+    padding: ${props => props.padding ? props.padding : '24px'};
     margin: 10px;
     background-color: ${props => props.outlined ? '#FFFFFF' : props.color ? props.color : '#1C4370'};
     color:  ${props => props.outlined ? props.outlined : '#FFFFFF'};
@@ -59,7 +59,7 @@ const ButtonTitle = styled.span`
 export default class ButtonRounded extends React.Component {
     render() {
         return (
-            <Button type={this.props.type} onClick={this.props.click} outlined={this.props.outlined} color={this.props.color}>
+            <Button type={this.props.type} onClick={this.props.click} padding={this.props.padding} outlined={this.props.outlined} color={this.props.color}>
                 <ButtonTitle>
                     {this.props.title}
                 </ButtonTitle>
