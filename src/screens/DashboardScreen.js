@@ -7,6 +7,25 @@ import Users from '../assets/users_icon.png'
 import Interpreters from '../assets/interpreters_icon.png'
 import Busy from '../assets/busy_icon.png'
 import Calls from '../assets/calls_icon.png'
+import firebase from 'firebase/app'
+import 'firebase/database'
+
+var firebaseConfig = {
+    apiKey: 'AIzaSyDdBuY9r9gaf1AqMgsWh1FZdfAU7_7iiR8',
+    authDomain: 'uwiser-8c6e7.firebaseapp.com',
+    databaseURL: 'https://uwiser-8c6e7-default-rtdb.firebaseio.com',
+    projectId: 'uwiser-8c6e7',
+    storageBucket: 'uwiser-8c6e7.appspot.com',
+    messagingSenderId: '1089545432224',
+    appId: '1:1089545432224:web:079d6504522256d625adc5',
+    measurementId: 'G-BQRFZY6VY5'
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
+var database = firebase.database();
 
 const Container = styled.div`
     flex: 1;
@@ -85,17 +104,34 @@ export default class DashboardScreen extends React.Component {
 
         this.state = {
             redirect: localStorage.getItem('TOKEN_UWISER') == null,
+            online: 0,
         }
     }
 
+    componentDidMount() {
+        database
+            .ref('/online')
+            .on('value', snapshot => {
+                console.log('User data: ', snapshot.val());
+                console.log(snapshot.val() != null);
+                if (snapshot.val() != null) {
+                    //const list = Object.keys(data);
+                    this.setState({ online: Object.keys(snapshot.val()).length });
+                } else {
+                    this.setState({ online: 0 });
+                }
+                console.log(this.state.online)
+            });
+    }
+
     render() {
-        const { redirect } = this.state;
+        const { online, redirect } = this.state;
 
         if (redirect) {
             return <Redirect to="/" />
         } else {
             return (
-                <Container style={{background: '#E1E1E1'}}>
+                <Container style={{ background: '#E1E1E1' }}>
                     <NavbarFixedTop />
                     <NavbarLeft />
                     <Content>
@@ -109,7 +145,7 @@ export default class DashboardScreen extends React.Component {
                                 </InfoCardContainer>
                                 <InfoCardContainer interpreters_online>
                                     <Icon src={Interpreters} />
-                                    <InfoCardText>52</InfoCardText>
+                                    <InfoCardText>{online}</InfoCardText>
                                     <InfoCardLabel>INTÉRPRETES ONLINE</InfoCardLabel>
                                 </InfoCardContainer>
                             </Row>

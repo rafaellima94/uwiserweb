@@ -255,7 +255,7 @@ export default class CallsScreen extends React.Component {
         }
 
         if (this.state.interpreter != '') {
-            aux = aux.filter(call => { console.log(call.otherDisplayName); return call.otherDisplayName.toLowerCase().includes(this.state.interpreter.toLowerCase()) });
+            aux = aux.filter(call => call.otherDisplayName.toLowerCase().includes(this.state.interpreter.toLowerCase()));
         }
 
         this.setState({
@@ -378,8 +378,8 @@ export default class CallsScreen extends React.Component {
                         <CardContainer>
                             <Row>
                                 <RedLabel>Total de registros: {calls.length}</RedLabel>
-                                <BlueLabel>Custo total das ligações: {this.currencyFormatter(calls.reduce((a, b) => { return a + (b.duration / 60) * 50; }, 0))}</BlueLabel>
-                                <GreenLabel>Custo total intérprete a receber: {this.currencyFormatter(calls.reduce((a, b) => { return a + ((b.duration / 60) * 50) * 0.8979; }, 0))}</GreenLabel>
+                                <BlueLabel>Custo total das ligações: {this.currencyFormatter(calls.reduce((a, b) => { return a + (b.duration / 60) * 50; }, 0) / 2)}</BlueLabel>
+                                <GreenLabel>Custo total intérprete a receber: {this.currencyFormatter(calls.reduce((a, b) => { return a + ((b.duration / 60) * 50) * 0.8979; }, 0) / 2)}</GreenLabel>
                             </Row>
                         </CardContainer>
                         <CardContainer>
