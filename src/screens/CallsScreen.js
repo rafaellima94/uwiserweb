@@ -274,6 +274,10 @@ export default class CallsScreen extends React.Component {
         return format.toLocaleTimeString();
     }
 
+    durationFormatter = (seconds) => {
+        return new Date(seconds * 1000).toISOString().substr(11, 8);
+    }
+
     currencyFormatter = (value) => {
         return `¥ ${value.toFixed(2)}`;
     }
@@ -283,43 +287,44 @@ export default class CallsScreen extends React.Component {
 
         const columns = ([
             {
-                name: 'Date',
+                name: 'Data',
                 selector: 'date',
                 format: row => this.dateFormatter(row.startTime)
             },
             {
-                name: 'Time',
+                name: 'Hora',
                 selector: 'name',
                 format: row => this.timeFormatter(row.startTime)
             },
             {
-                name: 'Duration',
+                name: 'Duração',
                 selector: 'duration',
+                format: row => this.durationFormatter(row.duration)
             },
             {
-                name: 'User',
+                name: 'Usuário',
                 selector: 'displayName',
             },
             {
-                name: 'Interpreter',
+                name: 'Interprete',
                 selector: 'otherDisplayName',
             },
             {
-                name: 'Minute price',
+                name: 'Preço Minuto',
                 cell: row => '¥ 50',
             },
             {
-                name: 'Total price',
+                name: 'Preço Total',
                 cell: row => this.currencyFormatter((row.duration / 60) * 50),
             },
             {
-                name: 'Interpreter receives',
+                name: 'Intéprete Receberá',
                 cell: row => this.currencyFormatter((row.duration / 60) * 50 * 0.8979),
             },
             {
                 width: '100px',
                 name: 'Recording',
-                cell: row => <img src={play} style={{ width: '40px', height: '40px', }} />,
+                cell: row => <img src={playOff} style={{ width: '40px', height: '40px', }} />,
                 ignoreRowClick: true,
                 allowOverflow: true,
                 button: true,
@@ -334,18 +339,18 @@ export default class CallsScreen extends React.Component {
                     <NavbarFixedTop />
                     <NavbarLeft />
                     <Content>
-                        <CardTitle>CALLS</CardTitle>
+                        <CardTitle>LIGAÇÕES</CardTitle>
                         <CardContainer>
                             <InputContainer>
-                                <InputLabel>Initial Date</InputLabel>
+                                <InputLabel>Data Inicial</InputLabel>
                                 <Input type='date' placeholder='Initial Date' name='initial_date' value={initial_date} change={this.handleChange} format='MM/dd/yyyy' />
                             </InputContainer>
                             <InputContainer>
-                                <InputLabel>Final Date</InputLabel>
+                                <InputLabel>Data Final</InputLabel>
                                 <Input type='date' placeholder='Final Date' name='final_date' value={final_date} change={this.handleChange} format='MM/dd/yyyy' />
                             </InputContainer>
                             <InputContainer>
-                                <InputLabel>User</InputLabel>
+                                <InputLabel>Usuários</InputLabel>
                                 <Select
                                     name='user'
                                     value={user}
@@ -357,7 +362,7 @@ export default class CallsScreen extends React.Component {
                                 </Select>
                             </InputContainer>
                             <InputContainer>
-                                <InputLabel>Interpreter</InputLabel>
+                                <InputLabel>Intérpretes</InputLabel>
                                 <Select
                                     name='interpreter'
                                     value={interpreter}

@@ -368,7 +368,7 @@ export default class UsersScreen extends React.Component {
 
         const columns = ([
             {
-                name: 'Name',
+                name: 'Nome',
                 selector: 'name',
             },
             {
@@ -376,11 +376,11 @@ export default class UsersScreen extends React.Component {
                 selector: 'email',
             },
             {
-                name: 'Identification',
+                name: 'Documento',
                 selector: 'cpf',
             },
             {
-                name: 'Phone',
+                name: 'Telefone',
                 selector: 'phone',
             },
             {
@@ -411,7 +411,7 @@ export default class UsersScreen extends React.Component {
                     <Content>
                         <Row>
                             <CardTitle>
-                                <span>USERS</span>
+                                <span>USUÁRIOS</span>
                                 <Grow />
                                 <Input type='text' placeholder='&#128269; Search' name='search' value={search} change={this.handleSearch} />
                                 <ButtonRounded type='button' title={<PlusIcon />} color={'#5CB5E9'} click={() => this.handleOpenModal()} />
@@ -449,9 +449,9 @@ export default class UsersScreen extends React.Component {
                         <ModalBody>
                             <Input type='text' placeholder='Nome' name='name' value={name} change={this.handleChange} required='required' />
                             <Input type='email' placeholder='E-mail' name='email' value={email} change={this.handleChange} required='required' />
-                            <Input type='text' placeholder='Registration' name='cpf' value={cpf} change={this.handleChange} required='required' />
-                            <Input type='text' placeholder='Phone' name='phone' value={phone} change={this.handleChange} required='required' />
-                            {create && <Input type='password' placeholder='Password' name='password' value={password} change={this.handleChange} required='required' />}
+                            <Input type='text' placeholder='Documento' name='cpf' value={cpf} change={this.handleChange} required='required' />
+                            <Input type='text' placeholder='Telefone' name='phone' value={phone} change={this.handleChange} required='required' />
+                            {create && <Input type='password' placeholder='Senha' name='password' value={password} change={this.handleChange} required='required' />}
                             {error && <Error>E-mail já cadastrado.</Error>}
                             <PasswordInfo>* Senha será enviada por e-mail</PasswordInfo>
                             <ButtonRounded title='save' click={this.handleRequest} />
@@ -460,10 +460,10 @@ export default class UsersScreen extends React.Component {
                     <ReactModal
                         isOpen={this.state.showConfirmationModal}
                         style={modalStyles}
-                        contentLabel='Delete User'
+                        contentLabel='Remover Usuário'
                         onRequestClose={this.handleCloseConfirmationModal}>
                         <ModalHeader>
-                            <ModalTitle>Delete User</ModalTitle>
+                            <ModalTitle>Remover Usuário</ModalTitle>
                             <ButtonRounded outlined='#1C4370' title={<CloseIcon />} click={this.handleCloseConfirmationModal} />
                         </ModalHeader>
                         <ModalBody>

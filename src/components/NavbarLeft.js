@@ -38,10 +38,10 @@ export default class NavbarLeft extends React.Component {
         return (
             <Navbar>
                 <ButtonLink to='/Dashboard' title='Dashboard' icon={<Icon src={Dashboard} />} />
-                <ButtonLink to='/Calls' title='Calls' icon={<Icon src={Calls} />} />
-                <ButtonLink to='/Interpreters' title='Interpreters' icon={<Icon src={Interpreters} />} />
-                <ButtonLink to='/Users' title='Users' icon={<Icon src={Users} />} />
-                <ButtonLink to='/Admins' title='Admins' icon={<Icon src={Admins} />} />
+                <ButtonLink to='/Calls' title='Ligações' icon={<Icon src={Calls} />} />
+                <ButtonLink to='/Interpreters' title='Intérpretes' icon={<Icon src={Interpreters} />} />
+                <ButtonLink to='/Users' title='Usuários' icon={<Icon src={Users} />} />
+                <ButtonLink to='/Admins' title='Administradores' icon={<Icon src={Admins} />} />
                 <ButtonLink to='/' title='Sair' icon={<Icon src={Exit} />} click={() => {
                     localStorage.removeItem('TOKEN_UWISER');
                     localStorage.removeItem('USER_ID_UWISER');

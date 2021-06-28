@@ -418,7 +418,7 @@ export default class InterpretersScreen extends React.Component {
 
         const columns = ([
             {
-                name: 'Name',
+                name: 'Nome',
                 selector: 'name',
             },
             {
@@ -430,11 +430,11 @@ export default class InterpretersScreen extends React.Component {
                 selector: 'email_paypal',
             },
             {
-                name: 'Identification',
+                name: 'Documento',
                 selector: 'cpf',
             },
             {
-                name: 'Phone',
+                name: 'Telefone',
                 selector: 'phone',
             },
             {
@@ -465,7 +465,7 @@ export default class InterpretersScreen extends React.Component {
                     <Content>
                         <Row>
                             <CardTitle>
-                                <span>INTERPRETERS</span>
+                                <span>INTÉRPRETES</span>
                                 <Grow />
                                 <Input type='text' placeholder='&#128269; Search' name='search' value={search} change={this.handleSearch} />
                                 <ButtonRounded type='button' title={<PlusIcon />} color={'#5CB5E9'} click={() => this.handleOpenModal()} />
@@ -503,38 +503,38 @@ export default class InterpretersScreen extends React.Component {
                         <ModalBody>
                             <Input type='text' placeholder='Nome' name='name' value={name} change={this.handleChange} required='required' />
                             <Input type='email' placeholder='E-mail' name='email' value={email} change={this.handleChange} required='required' />
-                            <Input type='text' placeholder='Registration' name='cpf' value={cpf} change={this.handleChange} required='required' />
-                            <Input type='date' placeholder='Birthday' name='age' value={age} change={this.handleChange} required='required' />
-                            <Input type='text' placeholder='City' name='city' value={city} change={this.handleChange} required='required' />
-                            <Input type='text' placeholder='Country' name='country' value={country} change={this.handleChange} required='required' />
+                            <Input type='text' placeholder='Documento' name='cpf' value={cpf} change={this.handleChange} required='required' />
+                            <Input type='date' placeholder='Data de Nascimento' name='age' value={age} change={this.handleChange} required='required' />
+                            <Input type='text' placeholder='Cidade' name='city' value={city} change={this.handleChange} required='required' />
+                            <Input type='text' placeholder='País' name='country' value={country} change={this.handleChange} required='required' />
                             <Select
                                 name='specialty'
                                 value={specialty}
                                 onChange={this.handleChange}>
-                                <option value=''>Specialty</option>
-                                <option value='administration'>Administration</option>
-                                <option value='agribusiness_agriculture'>Agribusiness and Agriculture</option>
-                                <option value='architecture_urbanism'>Architecture and Urbanism</option>
-                                <option value='accounting_sciences'>Accounting Sciences</option>
-                                <option value='law'>Law</option>
-                                <option value='engineering'>Engineering</option>
-                                <option value='statistic'>Statistic</option>
-                                <option value='aesthetics'>Aesthetics</option>
-                                <option value='gastronomy'>Gastronomy</option>
-                                <option value='management'>Management</option>
-                                <option value='logistics'>Logistics</option>
+                                <option value=''>Área de Atuação</option>
+                                <option value='administration'>Administração</option>
+                                <option value='agribusiness_agriculture'>Agronegócios e Agropecuária</option>
+                                <option value='architecture_urbanism'>Arquitetura e Urbanismo</option>
+                                <option value='accounting_sciences'>Ciências Contábeis</option>
+                                <option value='law'>Direito</option>
+                                <option value='engineering'>Engenharia</option>
+                                <option value='statistic'>Estatística</option>
+                                <option value='aesthetics'>Estética</option>
+                                <option value='gastronomy'>Gastronomia</option>
+                                <option value='management'>Gestão</option>
+                                <option value='logistics'>Logística</option>
                                 <option value='marketing'>Marketing</option>
-                                <option value='dentistry'>Dentistry</option>
-                                <option value='human_resources'>Human Resources</option>
-                                <option value='health'>Health</option>
-                                <option value='technology'>Technology</option>
-                                <option value='tourism'>Tourism</option>
+                                <option value='dentistry'>Odontologia</option>
+                                <option value='human_resources'>Recursos Humanos</option>
+                                <option value='health'>Saúde</option>
+                                <option value='technology'>Tecnologia</option>
+                                <option value='tourism'>Turismo</option>
                             </Select>
-                            <Input type='text' placeholder='Description' name='description' value={description} change={this.handleChange} required='required' />
-                            <Input type='text' placeholder='Languages' name='languages' value={languages} change={this.handleChange} required='required' />
-                            <Input type='text' placeholder='Phone' name='phone' value={phone} change={this.handleChange} required='required' />
+                            <Input type='text' placeholder='Descrição' name='description' value={description} change={this.handleChange} required='required' />
+                            <Input type='text' placeholder='Idiomas' name='languages' value={languages} change={this.handleChange} required='required' />
+                            <Input type='text' placeholder='Telefone' name='phone' value={phone} change={this.handleChange} required='required' />
                             <Input type='email' placeholder='E-mail Paypal' name='email_paypal' value={email_paypal} change={this.handleChange} required='required' />
-                            {create && <Input type='password' placeholder='Password' name='password' value={password} change={this.handleChange} required='required' />}
+                            {create && <Input type='password' placeholder='Senha' name='password' value={password} change={this.handleChange} required='required' />}
                             {error && <Error>E-mail já cadastrado.</Error>}
                             <PasswordInfo>* Senha será enviada por e-mail</PasswordInfo>
                             <ButtonRounded title='save' click={this.handleRequest} />
@@ -543,10 +543,10 @@ export default class InterpretersScreen extends React.Component {
                     <ReactModal
                         isOpen={this.state.showConfirmationModal}
                         style={modalStyles}
-                        contentLabel='Delete Interpreter'
+                        contentLabel='Remover Intérprete'
                         onRequestClose={this.handleCloseConfirmationModal}>
                         <ModalHeader>
-                            <ModalTitle>Delete Interpreter</ModalTitle>
+                            <ModalTitle>Remover Intérprete</ModalTitle>
                             <ButtonRounded outlined='#1C4370' title={<CloseIcon />} click={this.handleCloseConfirmationModal} />
                         </ModalHeader>
                         <ModalBody>
