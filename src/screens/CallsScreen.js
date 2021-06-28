@@ -251,11 +251,11 @@ export default class CallsScreen extends React.Component {
         }
 
         if (this.state.user != '') {
-            aux = aux.filter(call => call.displayName.toLowerCase().includes(this.state.user.toLowerCase()));
+            aux = aux.filter(call => call.userId == this.state.user);
         }
 
         if (this.state.interpreter != '') {
-            aux = aux.filter(call => call.otherDisplayName.toLowerCase().includes(this.state.interpreter.toLowerCase()));
+            aux = aux.filter(call => call.otherUserId == this.state.interpreter);
         }
 
         this.setState({
@@ -323,7 +323,7 @@ export default class CallsScreen extends React.Component {
             },
             {
                 width: '100px',
-                name: 'Recording',
+                name: 'Gravações',
                 cell: row => <img src={playOff} style={{ width: '40px', height: '40px', }} />,
                 ignoreRowClick: true,
                 allowOverflow: true,
@@ -355,9 +355,9 @@ export default class CallsScreen extends React.Component {
                                     name='user'
                                     value={user}
                                     onChange={this.handleChange}>
-                                    <option value=''>User</option>
+                                    <option value=''>Usuário</option>
                                     {
-                                        users.map(user => <option key={user.id} value={user.name}>{user.name}</option>)
+                                        users.map(user => <option key={user.id} value={user.id}>{user.name}</option>)
                                     }
                                 </Select>
                             </InputContainer>
@@ -369,7 +369,7 @@ export default class CallsScreen extends React.Component {
                                     onChange={this.handleChange}>
                                     <option value=''>Interpreter</option>
                                     {
-                                        interpreters.map(interpreter => <option key={interpreter.id} value={interpreter.name}>{interpreter.name}</option>)
+                                        interpreters.map(interpreter => <option key={interpreter.id} value={interpreter.id}>{interpreter.name}</option>)
                                     }
                                 </Select>
                             </InputContainer>

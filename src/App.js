@@ -5,7 +5,7 @@ import DashboardScreen from './screens/DashboardScreen'
 import CallsScreen from './screens/CallsScreen'
 import InterpretersScreen from './screens/InterpretersScreen'
 import UsersScreen from './screens/UsersScreen'
-// import AdminsScreen from './screens/AdminsScreen'
+import AdminsScreen from './screens/AdminsScreen'
 import './App.css'
 
 const routes = [
@@ -29,10 +29,10 @@ const routes = [
     path: '/Users',
     component: UsersScreen
   },
-  // {
-  //   path: '/Admins',
-  //   component: AdminsScreen
-  // },
+  {
+    path: '/Admins',
+    component: AdminsScreen
+  },
 ];
 
 export default function App() {
