@@ -92,6 +92,7 @@ const Spinner = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 100px;
+    margin-bottom: 100px;
 `;
 
 const customStyles = {
@@ -240,24 +241,18 @@ export default class UsersScreen extends React.Component {
                 name: this.state.name,
                 email: this.state.email,
                 cpf: this.state.cpf,
-                age: this.state.birthday,
-                city: this.state.city,
-                country: this.state.country,
-                specialty: this.state.specialty,
-                description: this.state.description,
-                languages: this.state.languages,
-                phone: this.state.phone,
-                image: this.state.res.data.data.url,
                 password: this.state.password,
-                email_paypal: this.state.emailPaypal,
+                phone: this.state.phone,
                 user_type_id: 1,
             }
         ).then((res) => {
+            console.log(res)
             this.handleGet();
             this.setState({ error: false, loading: false });
             this.handleCloseModal();
         }).catch(err => {
             this.setState({ error: true, loading: false });
+            console.log(err)
         });
     }
 
@@ -268,16 +263,8 @@ export default class UsersScreen extends React.Component {
                 name: this.state.name,
                 email: this.state.email,
                 cpf: this.state.cpf,
-                age: this.state.birthday,
-                city: this.state.city,
-                country: this.state.country,
-                specialty: this.state.specialty,
-                description: this.state.description,
-                languages: this.state.languages,
                 phone: this.state.phone,
-                image: this.state.res.data.data.url,
                 password: this.state.password,
-                email_paypal: this.state.emailPaypal,
                 user_type_id: 1,
             },
             {
@@ -285,19 +272,18 @@ export default class UsersScreen extends React.Component {
                     Authorization: 'Bearer ' + localStorage.getItem('TOKEN_UWISER')
                 }
             }).then((res) => {
+                console.log(res)
                 this.handleGet();
                 this.setState({ error: false, loading: false });
                 this.handleCloseModal();
             }).catch(err => {
                 this.setState({ error: true, loading: false });
+                console.log(err)
             });
     }
 
     handleDelete = () => {
-        axios.delete(`${process.env.REACT_APP_API_URL}/users`,
-            {
-                id: this.state.id,
-            },
+        axios.delete(`${process.env.REACT_APP_API_URL}/users?id=${this.state.id}`,
             {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('TOKEN_UWISER')
@@ -309,11 +295,13 @@ export default class UsersScreen extends React.Component {
             }).catch(err => {
                 this.setState({ error: true, loading: false });
                 this.handleCloseConfirmationModal();
+                console.log(err)
             });
     }
 
     handleOpenModal = (row) => {
         this.setState({ showModal: true });
+        console.log(row)
 
         if (row != null) {
             this.setState({

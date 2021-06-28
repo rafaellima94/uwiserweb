@@ -91,6 +91,7 @@ const Spinner = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 100px;
+    margin-bottom: 100px;
 `;
 
 const Select = styled.select`
@@ -328,10 +329,7 @@ export default class InterpretersScreen extends React.Component {
     }
 
     handleDelete = () => {
-        axios.delete(`${process.env.REACT_APP_API_URL}/users`,
-            {
-                id: this.state.id,
-            },
+        axios.delete(`${process.env.REACT_APP_API_URL}/users?id=${this.state.id}`,
             {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('TOKEN_UWISER')
