@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Redirect } from 'react-router-dom'
+import axios from 'axios'
 import NavbarFixedTop from '../components/NavbarFixedTop'
 import NavbarLeft from '../components/NavbarLeft'
 import Users from '../assets/users_icon.png'
@@ -104,28 +105,70 @@ export default class DashboardScreen extends React.Component {
 
         this.state = {
             redirect: localStorage.getItem('TOKEN_UWISER') == null,
-            online: 0,
+            onlineUsers: 0,
+            onlineInterpreters: 0,
+            calls: [],
         }
     }
 
     componentDidMount() {
         database
-            .ref('/online')
+            .ref('/onlineUsers')
             .on('value', snapshot => {
                 console.log('User data: ', snapshot.val());
                 console.log(snapshot.val() != null);
                 if (snapshot.val() != null) {
                     //const list = Object.keys(data);
-                    this.setState({ online: Object.keys(snapshot.val()).length });
+                    this.setState({ onlineUsers: Object.keys(snapshot.val()).length });
                 } else {
-                    this.setState({ online: 0 });
+                    this.setState({ onlineUsers: 0 });
                 }
-                console.log(this.state.online)
+            });
+
+        database
+            .ref('/onlineInterpreters')
+            .on('value', snapshot => {
+                console.log('User data: ', snapshot.val());
+                console.log(snapshot.val() != null);
+                if (snapshot.val() != null) {
+                    //const list = Object.keys(data);
+                    this.setState({ onlineInterpreters: Object.keys(snapshot.val()).length });
+                } else {
+                    this.setState({ onlineInterpreters: 0 });
+                }
+            });
+
+        this.handleGetCalls();
+    }
+
+    handleGetCalls = () => {
+        this.setState({ loading: true });
+        var URL = `${process.env.REACT_APP_API_URL}/calls/all`;
+
+        axios.get(URL,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('TOKEN_UWISER')
+                }
+            })
+            .then(res => {
+                var callsAux = res.data;
+
+                callsAux = callsAux.filter(call => {
+                    let callDate = new Date(call.startTime);
+                    let todayDate = new Date();
+                    return callDate.toLocaleDateString() == todayDate.toLocaleDateString();
+                });
+
+                this.setState({
+                    calls: callsAux,
+                });
+            }).catch(err => {
             });
     }
 
     render() {
-        const { online, redirect } = this.state;
+        const { onlineUsers, onlineInterpreters, calls, redirect } = this.state;
 
         if (redirect) {
             return <Redirect to="/" />
@@ -140,24 +183,24 @@ export default class DashboardScreen extends React.Component {
                             <Row>
                                 <InfoCardContainer clients_online>
                                     <Icon src={Users} />
-                                    <InfoCardText>150</InfoCardText>
+                                    <InfoCardText>{onlineUsers}</InfoCardText>
                                     <InfoCardLabel>CLIENTES ONLINE</InfoCardLabel>
                                 </InfoCardContainer>
                                 <InfoCardContainer interpreters_online>
                                     <Icon src={Interpreters} />
-                                    <InfoCardText>{online}</InfoCardText>
+                                    <InfoCardText>{onlineInterpreters}</InfoCardText>
                                     <InfoCardLabel>INTÉRPRETES ONLINE</InfoCardLabel>
                                 </InfoCardContainer>
                             </Row>
                             <Row>
                                 <InfoCardContainer interpreters_busy>
                                     <Icon src={Busy} />
-                                    <InfoCardText>32</InfoCardText>
+                                    <InfoCardText>0</InfoCardText>
                                     <InfoCardLabel>INTÉRPRETES OCUPADOS</InfoCardLabel>
                                 </InfoCardContainer>
                                 <InfoCardContainer>
                                     <Icon src={Calls} />
-                                    <InfoCardText>96</InfoCardText>
+                                    <InfoCardText>{calls.length}</InfoCardText>
                                     <InfoCardLabel>CHAMADAS HOJE</InfoCardLabel>
                                 </InfoCardContainer>
                             </Row>

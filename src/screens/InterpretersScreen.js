@@ -282,7 +282,6 @@ export default class InterpretersScreen extends React.Component {
                 description: this.state.description,
                 languages: this.state.languages,
                 phone: this.state.phone,
-                image: this.state.res.data.data.url,
                 password: this.state.password,
                 email_paypal: this.state.emailPaypal,
                 user_type_id: 2,
@@ -310,7 +309,6 @@ export default class InterpretersScreen extends React.Component {
                 description: this.state.description,
                 languages: this.state.languages,
                 phone: this.state.phone,
-                image: this.state.res.data.data.url,
                 password: this.state.password,
                 email_paypal: this.state.emailPaypal,
                 user_type_id: 2,
@@ -362,7 +360,7 @@ export default class InterpretersScreen extends React.Component {
                 country: row.country,
                 specialty: row.specialty,
                 description: row.description,
-                emailPaypal: row.emailPaypal,
+                emailPaypal: row.email_paypal,
                 password: '',
                 create: false,
             })
@@ -412,7 +410,7 @@ export default class InterpretersScreen extends React.Component {
     }
 
     render() {
-        const { interpreters, name, email, cpf, age, city, country, specialty, description, languages, phone, email_paypal, password, create, search, loading, redirect, error } = this.state;
+        const { interpreters, name, email, cpf, age, city, country, specialty, description, languages, phone, emailPaypal, password, create, search, loading, redirect, error } = this.state;
 
         const columns = ([
             {
@@ -465,7 +463,7 @@ export default class InterpretersScreen extends React.Component {
                             <CardTitle>
                                 <span>INTÉRPRETES</span>
                                 <Grow />
-                                <Input type='text' placeholder='&#128269; Search' name='search' value={search} change={this.handleSearch} />
+                                <Input type='text' placeholder='&#128269; Buscar' name='search' value={search} change={this.handleSearch} />
                                 <ButtonRounded type='button' title={<PlusIcon />} color={'#5CB5E9'} click={() => this.handleOpenModal()} />
                             </CardTitle>
                         </Row>
@@ -531,11 +529,11 @@ export default class InterpretersScreen extends React.Component {
                             <Input type='text' placeholder='Descrição' name='description' value={description} change={this.handleChange} required='required' />
                             <Input type='text' placeholder='Idiomas' name='languages' value={languages} change={this.handleChange} required='required' />
                             <Input type='text' placeholder='Telefone' name='phone' value={phone} change={this.handleChange} required='required' />
-                            <Input type='email' placeholder='E-mail Paypal' name='email_paypal' value={email_paypal} change={this.handleChange} required='required' />
+                            <Input type='email' placeholder='E-mail Paypal' name='email_paypal' value={emailPaypal} change={this.handleChange} required='required' />
                             {create && <Input type='password' placeholder='Senha' name='password' value={password} change={this.handleChange} required='required' />}
                             {error && <Error>E-mail já cadastrado.</Error>}
                             <PasswordInfo>* Senha será enviada por e-mail</PasswordInfo>
-                            <ButtonRounded title='save' click={this.handleRequest} />
+                            <ButtonRounded title='salvar' click={this.handleRequest} />
                         </ModalBody>
                     </ReactModal>
                     <ReactModal
@@ -551,8 +549,8 @@ export default class InterpretersScreen extends React.Component {
                             <h3>Você deseja realmente remover o usuário {name}</h3>
                         </ModalBody>
                         <ModalFooter>
-                            <ButtonRounded type='button' title='cancel' click={this.handleCloseConfirmationModal} />
-                            <ButtonRounded type='submit' title='delete' click={this.handleDelete} />
+                            <ButtonRounded type='button' title='cancelar' click={this.handleCloseConfirmationModal} />
+                            <ButtonRounded type='submit' title='remover' click={this.handleDelete} />
                         </ModalFooter>
                     </ReactModal>
                 </Container>

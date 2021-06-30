@@ -261,7 +261,6 @@ export default class UsersScreen extends React.Component {
             {
                 id: this.state.id,
                 name: this.state.name,
-                email: this.state.email,
             },
             {
                 headers: {
@@ -385,7 +384,7 @@ export default class UsersScreen extends React.Component {
                             <CardTitle>
                                 <span>ADMINISTRADORES</span>
                                 <Grow />
-                                <Input type='text' placeholder='&#128269; Search' name='search' value={search} change={this.handleSearch} />
+                                <Input type='text' placeholder='&#128269; Buscar' name='search' value={search} change={this.handleSearch} />
                                 <ButtonRounded type='button' title={<PlusIcon />} color={'#5CB5E9'} click={() => this.handleOpenModal()} />
                             </CardTitle>
                         </Row>
@@ -424,7 +423,7 @@ export default class UsersScreen extends React.Component {
                             {create && <Input type='password' placeholder='Senha' name='password' value={password} change={this.handleChange} required='required' />}
                             {error && <Error>E-mail já cadastrado.</Error>}
                             <PasswordInfo>* Senha será enviada por e-mail</PasswordInfo>
-                            <ButtonRounded title='save' click={this.handleRequest} />
+                            <ButtonRounded title='salvar' click={this.handleRequest} />
                         </ModalBody>
                     </ReactModal>
                     <ReactModal
@@ -440,8 +439,8 @@ export default class UsersScreen extends React.Component {
                             <h3>Você deseja realmente remover o administrador {name}</h3>
                         </ModalBody>
                         <ModalFooter>
-                            <ButtonRounded type='button' title='cancel' click={this.handleCloseConfirmationModal} />
-                            <ButtonRounded type='submit' title='delete' click={this.handleDelete} />
+                            <ButtonRounded type='button' title='cancelar' click={this.handleCloseConfirmationModal} />
+                            <ButtonRounded type='submit' title='remover' click={this.handleDelete} />
                         </ModalFooter>
                     </ReactModal>
                 </Container>
