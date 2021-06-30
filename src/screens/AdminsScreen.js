@@ -190,11 +190,9 @@ export default class UsersScreen extends React.Component {
             id: '',
             name: '',
             email: '',
-            cpf: '',
-            phone: '',
             password: '',
-            users: [],
-            usersAux: [],
+            admins: [],
+            adminsAux: [],
             error: false,
             search: '',
         }
@@ -216,7 +214,7 @@ export default class UsersScreen extends React.Component {
     }
 
     handleGet = () => {
-        var URL = `${process.env.REACT_APP_API_URL}/users/commom`;
+        var URL = `${process.env.REACT_APP_API_URL}/users/admins`;
 
         axios.get(URL,
             {
@@ -226,8 +224,8 @@ export default class UsersScreen extends React.Component {
             })
             .then(res => {
                 this.setState({
-                    users: res.data,
-                    usersAux: res.data,
+                    admins: res.data,
+                    adminsAux: res.data,
                     loading: false,
                 });
             }).catch(err => {
@@ -236,36 +234,34 @@ export default class UsersScreen extends React.Component {
     }
 
     handleCreate = () => {
-        axios.post(`${process.env.REACT_APP_API_URL}/users`,
+        axios.post(`${process.env.REACT_APP_API_URL}/users/admin`,
             {
                 name: this.state.name,
                 email: this.state.email,
-                cpf: this.state.cpf,
-                password: this.state.password,
                 phone: this.state.phone,
-                user_type_id: 1,
-            }
-        ).then((res) => {
-            console.log(res)
-            this.handleGet();
-            this.setState({ error: false, loading: false });
-            this.handleCloseModal();
-        }).catch(err => {
-            this.setState({ error: true, loading: false });
-            console.log(err)
-        });
+                password: this.state.password,
+            },
+            {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('TOKEN_UWISER')
+                }
+            }).then((res) => {
+                console.log(res)
+                this.handleGet();
+                this.setState({ error: false, loading: false });
+                this.handleCloseModal();
+            }).catch(err => {
+                this.setState({ error: true, loading: false });
+                console.log(err)
+            });
     }
 
     handleUpdate = () => {
-        axios.put(`${process.env.REACT_APP_API_URL}/users`,
+        axios.put(`${process.env.REACT_APP_API_URL}/users/admin`,
             {
                 id: this.state.id,
                 name: this.state.name,
                 email: this.state.email,
-                cpf: this.state.cpf,
-                phone: this.state.phone,
-                password: this.state.password,
-                user_type_id: 1,
             },
             {
                 headers: {
@@ -283,10 +279,7 @@ export default class UsersScreen extends React.Component {
     }
 
     handleDelete = () => {
-        axios.delete(`${process.env.REACT_APP_API_URL}/users`,
-            {
-                id: this.state.id,
-            },
+        axios.delete(`${process.env.REACT_APP_API_URL}/users/admin?id=${this.state.id}`,
             {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('TOKEN_UWISER')
@@ -311,8 +304,6 @@ export default class UsersScreen extends React.Component {
                 id: row.id,
                 name: row.name,
                 email: row.email,
-                cpf: row.cpf,
-                phone: row.phone,
                 password: '',
                 create: false,
             })
@@ -321,8 +312,6 @@ export default class UsersScreen extends React.Component {
                 id: '',
                 name: '',
                 email: '',
-                cpf: '',
-                phone: '',
                 password: '',
                 create: true,
             })
@@ -351,11 +340,11 @@ export default class UsersScreen extends React.Component {
 
     handleSearch = (event) => {
         this.handleChange(event);
-        this.setState({ users: event.target.value.length > 0 ? this.state.usersAux.filter(user => user.name.toUpperCase().includes(event.target.value.toUpperCase())) : this.state.usersAux })
+        this.setState({ admins: event.target.value.length > 0 ? this.state.adminsAux.filter(admin => admin.name.toUpperCase().includes(event.target.value.toUpperCase())) : this.state.adminsAux })
     }
 
     render() {
-        const { users, name, email, cpf, phone, password, create, search, loading, redirect, error } = this.state;
+        const { admins, name, email, password, create, search, loading, redirect, error } = this.state;
 
         const columns = ([
             {
@@ -365,14 +354,6 @@ export default class UsersScreen extends React.Component {
             {
                 name: 'E-mail',
                 selector: 'email',
-            },
-            {
-                name: 'Documento',
-                selector: 'cpf',
-            },
-            {
-                name: 'Telefone',
-                selector: 'phone',
             },
             {
                 width: '60px',
@@ -396,7 +377,7 @@ export default class UsersScreen extends React.Component {
             return <Redirect to="/" />
         } else {
             return (
-                <Container style={{background: '#E1E1E1'}}>
+                <Container style={{ background: '#E1E1E1' }}>
                     <NavbarFixedTop />
                     <NavbarLeft />
                     <Content>
@@ -418,7 +399,7 @@ export default class UsersScreen extends React.Component {
                                     <DataTable
                                         noHeader={true}
                                         columns={columns}
-                                        data={users}
+                                        data={admins}
                                         paginationRowsPerPageOptions={[10, 25, 50, 100]}
                                         paginationPerPage={10}
                                         pagination={true}
@@ -440,8 +421,6 @@ export default class UsersScreen extends React.Component {
                         <ModalBody>
                             <Input type='text' placeholder='Nome' name='name' value={name} change={this.handleChange} required='required' />
                             <Input type='email' placeholder='E-mail' name='email' value={email} change={this.handleChange} required='required' />
-                            <Input type='text' placeholder='Documento' name='cpf' value={cpf} change={this.handleChange} required='required' />
-                            <Input type='text' placeholder='Telefone' name='phone' value={phone} change={this.handleChange} required='required' />
                             {create && <Input type='password' placeholder='Senha' name='password' value={password} change={this.handleChange} required='required' />}
                             {error && <Error>E-mail já cadastrado.</Error>}
                             <PasswordInfo>* Senha será enviada por e-mail</PasswordInfo>
@@ -451,14 +430,14 @@ export default class UsersScreen extends React.Component {
                     <ReactModal
                         isOpen={this.state.showConfirmationModal}
                         style={modalStyles}
-                        contentLabel='Remover Usuário'
+                        contentLabel='Remover Administrador'
                         onRequestClose={this.handleCloseConfirmationModal}>
                         <ModalHeader>
-                            <ModalTitle>Remover Usuário</ModalTitle>
+                            <ModalTitle>Remover Administrador</ModalTitle>
                             <ButtonRounded outlined='#1C4370' title={<CloseIcon />} click={this.handleCloseConfirmationModal} />
                         </ModalHeader>
                         <ModalBody>
-                            <h3>Você deseja realmente remover o usuário {name}</h3>
+                            <h3>Você deseja realmente remover o administrador {name}</h3>
                         </ModalBody>
                         <ModalFooter>
                             <ButtonRounded type='button' title='cancel' click={this.handleCloseConfirmationModal} />

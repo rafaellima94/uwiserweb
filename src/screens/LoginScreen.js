@@ -135,7 +135,7 @@ class LoginScreen extends React.Component {
     handleLogin = (event) => {
         event.preventDefault();
         this.setState({ error: false })
-        var URL = `${process.env.REACT_APP_API_URL}/users/Login`;
+        var URL = `${process.env.REACT_APP_API_URL}/users/admin/login`;
 
         axios.post(URL,
             {
@@ -143,14 +143,15 @@ class LoginScreen extends React.Component {
                 password: this.state.password
             })
             .then(res => {
+                console.log(res.data);
                 localStorage.setItem('TOKEN_UWISER', res.data.token);
-                localStorage.setItem('USER_ID_UWISER', res.data.user.id);
-                localStorage.setItem('NAME_UWISER', res.data.user.name);
-                localStorage.setItem('EMAIL_UWISER', res.data.user.email);
+                localStorage.setItem('USER_ID_UWISER', res.data.admins.id);
+                localStorage.setItem('NAME_UWISER', res.data.admins.name);
+                localStorage.setItem('EMAIL_UWISER', res.data.admins.email);
                 this.props.history.push('/Dashboard');
             }).catch(err => {
                 this.setState({ error: true })
-                //console.log('Erro: ' + err);
+                console.log('Erro: ' + err);
             });
     }
 
