@@ -6,7 +6,7 @@ const ButtonLinkContainer = styled(Link)`
     display: flex;
     flex: 1;
     height: 26px;
-    margin: 10px;
+    margin: 15px 0 15px 0;
     background-color: #1C4370;
     color: #FFFFFF;
     cursor: pointer;

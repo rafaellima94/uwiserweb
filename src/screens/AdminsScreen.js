@@ -439,8 +439,8 @@ export default class UsersScreen extends React.Component {
                             <h3>Você deseja realmente remover o administrador {name}</h3>
                         </ModalBody>
                         <ModalFooter>
-                            <ButtonRounded type='button' title='cancelar' click={this.handleCloseConfirmationModal} />
-                            <ButtonRounded type='submit' title='remover' click={this.handleDelete} />
+                            <ButtonRounded type='button' title='cancelar' outlined='#1C4370' click={this.handleCloseConfirmationModal} />
+                            <ButtonRounded type='submit' title='remover' color='#C1272D' click={this.handleDelete} />
                         </ModalFooter>
                     </ReactModal>
                 </Container>

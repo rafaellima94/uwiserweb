@@ -14,6 +14,8 @@ import { Plus } from '@styled-icons/boxicons-regular/Plus'
 import { Close } from '@styled-icons/evaicons-solid/Close'
 import { Pencil } from '@styled-icons/octicons/Pencil'
 import { Trash } from '@styled-icons/bootstrap/Trash'
+import { CheckShield } from '@styled-icons/boxicons-regular/CheckShield'
+import { ShieldX } from '@styled-icons/boxicons-regular/ShieldX'
 
 const override = css`
     display: block;
@@ -83,6 +85,18 @@ const PlusIcon = styled(Plus)`
 
 const CloseIcon = styled(Close)`
     color: #1C4370;
+    height: 20px;
+    width: 20px;
+`;
+
+const CheckShieldIcon = styled(CheckShield)`
+    color: #1C4370;
+    height: 20px;
+    width: 20px;
+`;
+
+const ShieldXIcon = styled(ShieldX)`
+    color: #C1272D;
     height: 20px;
     width: 20px;
 `;
@@ -212,6 +226,8 @@ export default class InterpretersScreen extends React.Component {
             redirect: localStorage.getItem('TOKEN_UWISER') == null,
             showModal: false,
             showConfirmationModal: false,
+            showEnabledModal: false,
+            disabledEnabled: false,
             create: null,
             loading: false,
             id: '',
@@ -334,11 +350,32 @@ export default class InterpretersScreen extends React.Component {
                 }
             }).then((res) => {
                 this.handleGet();
-                this.setState({ error: false, loading: false });
+                this.setState({ loading: false });
                 this.handleCloseConfirmationModal();
             }).catch(err => {
-                this.setState({ error: true, loading: false });
+                this.setState({ loading: false });
                 this.handleCloseConfirmationModal();
+            });
+    }
+
+    handleEnable = () => {
+        this.setState({ disabledEnabled: true });
+        axios.put(`${process.env.REACT_APP_API_URL}/users/enabled`,
+            {
+                id: this.state.id,
+                enabled: this.state.enabled,
+            },
+            {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('TOKEN_UWISER')
+                }
+            }).then((res) => {
+                this.handleGet();
+                this.setState({ disabledEnabled: false, loading: false });
+                this.handleCloseEnabledModal();
+            }).catch(err => {
+                this.setState({ disabledEnabled: false, loading: false });
+                this.handleCloseEnabledModal();
             });
     }
 
@@ -400,6 +437,19 @@ export default class InterpretersScreen extends React.Component {
         this.setState({ showConfirmationModal: false });
     }
 
+    handleOpenEnabledModal = (row) => {
+        this.setState({
+            showEnabledModal: true,
+            id: row.id,
+            name: row.name,
+            enabled: row.enabled == 0 ? 1 : 0,
+        })
+    }
+
+    handleCloseEnabledModal = () => {
+        this.setState({ showEnabledModal: false });
+    }
+
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     }
@@ -410,7 +460,7 @@ export default class InterpretersScreen extends React.Component {
     }
 
     render() {
-        const { interpreters, name, email, cpf, age, city, country, specialty, description, languages, phone, emailPaypal, password, create, search, loading, redirect, error } = this.state;
+        const { interpreters, name, email, cpf, age, city, country, specialty, description, languages, phone, emailPaypal, password, enabled, disabledEnabled, create, search, loading, redirect, error } = this.state;
 
         const columns = ([
             {
@@ -435,6 +485,14 @@ export default class InterpretersScreen extends React.Component {
             },
             {
                 width: '60px',
+                selector: 'enabled',
+                cell: row => <ButtonRounded padding='10px' outlined={row.enabled ? '#1C4370' : '#C1272D'} title={row.enabled ? <CheckShieldIcon /> : <ShieldXIcon />} click={() => this.handleOpenEnabledModal(row)} />,
+                ignoreRowClick: true,
+                allowOverflow: true,
+                button: true,
+            },
+            {
+                width: '60px',
                 selector: 'edit',
                 cell: row => <ButtonRounded padding='10px' outlined='#1C4370' title={<PencilIcon />} click={() => this.handleOpenModal(row)} />,
                 ignoreRowClick: true,
@@ -455,7 +513,7 @@ export default class InterpretersScreen extends React.Component {
             return <Redirect to="/" />
         } else {
             return (
-                <Container style={{background: '#E1E1E1'}}>
+                <Container style={{ background: '#E1E1E1' }}>
                     <NavbarFixedTop />
                     <NavbarLeft />
                     <Content>
@@ -546,11 +604,28 @@ export default class InterpretersScreen extends React.Component {
                             <ButtonRounded outlined='#1C4370' title={<CloseIcon />} click={this.handleCloseConfirmationModal} />
                         </ModalHeader>
                         <ModalBody>
-                            <h3>Você deseja realmente remover o usuário {name}</h3>
+                            <h3>Você deseja realmente remover o usuário {name}?</h3>
                         </ModalBody>
                         <ModalFooter>
-                            <ButtonRounded type='button' title='cancelar' click={this.handleCloseConfirmationModal} />
-                            <ButtonRounded type='submit' title='remover' click={this.handleDelete} />
+                            <ButtonRounded type='button' title='cancelar' outlined='#1C4370' click={this.handleCloseConfirmationModal} />
+                            <ButtonRounded type='submit' title='remover' color='#C1272D' click={this.handleDelete} />
+                        </ModalFooter>
+                    </ReactModal>
+                    <ReactModal
+                        isOpen={this.state.showEnabledModal}
+                        style={modalStyles}
+                        contentLabel='Habilitar Intérprete'
+                        onRequestClose={this.handleCloseEnabledModal}>
+                        <ModalHeader>
+                            <ModalTitle>Habilitar Intérprete</ModalTitle>
+                            <ButtonRounded outlined='#1C4370' title={<CloseIcon />} click={this.handleCloseEnabledModal} />
+                        </ModalHeader>
+                        <ModalBody>
+                            <h3>Você deseja {enabled == 1 ? 'habilitar' : 'desabilitar'} o usuário {name}?</h3>
+                        </ModalBody>
+                        <ModalFooter>
+                            <ButtonRounded type='button' title='cancelar' outlined='#1C4370' click={this.handleCloseEnabledModal} />
+                            <ButtonRounded type='submit' title={enabled == 1 ? 'habilitar' : 'desabilitar'} click={this.handleEnable} disabled={disabledEnabled} />
                         </ModalFooter>
                     </ReactModal>
                 </Container>

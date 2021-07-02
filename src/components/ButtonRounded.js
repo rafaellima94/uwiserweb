@@ -24,6 +24,7 @@ const Button = styled.button`
     transition-property: box-shadow, transform, opacity, -webkit-box-shadow, -webkit-transform;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     text-transform: uppercase;
+    ${props => props.disabled && 'opacity: 0.6;'}
 
     &:before {
         border-radius: inherit;
@@ -41,12 +42,12 @@ const Button = styled.button`
     }
 
     &:active {
-        box-shadow: none;
+        ${props => !props.disabled && 'box-shadow: none;'}
     }
 
     &:hover {
-        opacity: ${props => props.outlined ? '1' : '0.9'};
-        background-color: ${props => props.outlined ? '#f2f2f2' : props.color ? props.color : '#1C4370'};
+        ${props => !props.disabled && `opacity: ${props => props.outlined ? '1' : '0.9'};`}
+        ${props => !props.disabled && `background-color: ${props => props.outlined ? '#f2f2f2' : props.color ? props.color : '#1C4370'};`}
     }
 `;
 
@@ -59,7 +60,7 @@ const ButtonTitle = styled.span`
 export default class ButtonRounded extends React.Component {
     render() {
         return (
-            <Button type={this.props.type} onClick={this.props.click} padding={this.props.padding} outlined={this.props.outlined} color={this.props.color}>
+            <Button type={this.props.type} onClick={this.props.click} padding={this.props.padding} outlined={this.props.outlined} color={this.props.color} disabled={this.props.disabled && true} >
                 <ButtonTitle>
                     {this.props.title}
                 </ButtonTitle>
