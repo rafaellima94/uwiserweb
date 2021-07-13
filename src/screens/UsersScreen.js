@@ -190,7 +190,6 @@ export default class UsersScreen extends React.Component {
             id: '',
             name: '',
             email: '',
-            cpf: '',
             phone: '',
             password: '',
             users: [],
@@ -240,7 +239,6 @@ export default class UsersScreen extends React.Component {
             {
                 name: this.state.name,
                 email: this.state.email,
-                cpf: this.state.cpf,
                 password: this.state.password,
                 phone: this.state.phone,
                 user_type_id: 1,
@@ -262,7 +260,6 @@ export default class UsersScreen extends React.Component {
                 id: this.state.id,
                 name: this.state.name,
                 email: this.state.email,
-                cpf: this.state.cpf,
                 phone: this.state.phone,
                 password: this.state.password,
                 user_type_id: 1,
@@ -308,7 +305,6 @@ export default class UsersScreen extends React.Component {
                 id: row.id,
                 name: row.name,
                 email: row.email,
-                cpf: row.cpf,
                 phone: row.phone,
                 password: '',
                 create: false,
@@ -318,7 +314,6 @@ export default class UsersScreen extends React.Component {
                 id: '',
                 name: '',
                 email: '',
-                cpf: '',
                 phone: '',
                 password: '',
                 create: true,
@@ -352,7 +347,7 @@ export default class UsersScreen extends React.Component {
     }
 
     render() {
-        const { users, name, email, cpf, phone, password, create, search, loading, redirect, error } = this.state;
+        const { users, name, email, phone, password, create, search, loading, redirect, error } = this.state;
 
         const columns = ([
             {
@@ -362,10 +357,6 @@ export default class UsersScreen extends React.Component {
             {
                 name: 'E-mail',
                 selector: 'email',
-            },
-            {
-                name: 'Documento',
-                selector: 'cpf',
             },
             {
                 name: 'Telefone',
@@ -437,7 +428,6 @@ export default class UsersScreen extends React.Component {
                         <ModalBody>
                             <Input type='text' placeholder='Nome' name='name' value={name} change={this.handleChange} required='required' />
                             <Input type='email' placeholder='E-mail' name='email' value={email} change={this.handleChange} required='required' />
-                            <Input type='text' placeholder='Documento' name='cpf' value={cpf} change={this.handleChange} required='required' />
                             <Input type='text' placeholder='Telefone' name='phone' value={phone} change={this.handleChange} required='required' />
                             {create && <Input type='password' placeholder='Senha' name='password' value={password} change={this.handleChange} required='required' />}
                             {error && <Error>E-mail já cadastrado.</Error>}
