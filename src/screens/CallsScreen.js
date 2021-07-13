@@ -340,67 +340,74 @@ export default class CallsScreen extends React.Component {
                     <NavbarLeft />
                     <Content>
                         <CardTitle>LIGAÇÕES</CardTitle>
-                        <CardContainer>
-                            <InputContainer>
-                                <InputLabel>Data Inicial</InputLabel>
-                                <Input type='date' placeholder='Initial Date' name='initial_date' value={initial_date} change={this.handleChange} format='MM/dd/yyyy' />
-                            </InputContainer>
-                            <InputContainer>
-                                <InputLabel>Data Final</InputLabel>
-                                <Input type='date' placeholder='Final Date' name='final_date' value={final_date} change={this.handleChange} format='MM/dd/yyyy' />
-                            </InputContainer>
-                            <InputContainer>
-                                <InputLabel>Usuários</InputLabel>
-                                <Select
-                                    name='user'
-                                    value={user}
-                                    onChange={this.handleChange}>
-                                    <option value=''>Usuário</option>
-                                    {
-                                        users.map(user => <option key={user.id} value={user.id}>{user.name}</option>)
-                                    }
-                                </Select>
-                            </InputContainer>
-                            <InputContainer>
-                                <InputLabel>Intérpretes</InputLabel>
-                                <Select
-                                    name='interpreter'
-                                    value={interpreter}
-                                    onChange={this.handleChange}>
-                                    <option value=''>Interpreter</option>
-                                    {
-                                        interpreters.map(interpreter => <option key={interpreter.id} value={interpreter.id}>{interpreter.name}</option>)
-                                    }
-                                </Select>
-                            </InputContainer>
-                            <ButtonRounded type='button' title='filtrar' click={this.handleGetFilter} />
-                        </CardContainer>
-                        <CardContainer>
-                            <Row>
-                                <RedLabel>Total de registros: {calls.length}</RedLabel>
-                                <BlueLabel>Custo total das ligações: {this.currencyFormatter(calls.reduce((a, b) => { return a + (b.duration / 60) * 50; }, 0) / 2)}</BlueLabel>
-                                <GreenLabel>Custo total intérprete a receber: {this.currencyFormatter(calls.reduce((a, b) => { return a + ((b.duration / 60) * 50) * 0.8979; }, 0) / 2)}</GreenLabel>
-                            </Row>
-                        </CardContainer>
-                        <CardContainer>
-                            {
-                                loading ?
-                                    <Spinner>
-                                        <HashLoader css={override} size={100} color={"#1C4370"} loading={this.state.loading} speedMultiplier={1.5} />
-                                    </Spinner>
+                        {
+                            loading ?
+                                <Spinner>
+                                    <HashLoader css={override} size={100} color={"#1C4370"} loading={this.state.loading} speedMultiplier={1.5} />
+                                </Spinner>
+                                :
+                                calls == null || calls.length == 0 ?
+                                    <CardContainer>
+                                        <InputLabel>Sem registros</InputLabel>
+                                    </CardContainer>
                                     :
-                                    <DataTable
-                                        noHeader={true}
-                                        columns={columns}
-                                        data={calls}
-                                        paginationRowsPerPageOptions={[10, 25, 50, 100]}
-                                        paginationPerPage={10}
-                                        pagination={true}
-                                        noDataComponent={''}
-                                        customStyles={customStyles}
-                                        style={{}} />
-                            }
-                        </CardContainer>
+                                    <div>
+                                        <CardContainer>
+                                            <InputContainer>
+                                                <InputLabel>Data Inicial</InputLabel>
+                                                <Input type='date' placeholder='Initial Date' name='initial_date' value={initial_date} change={this.handleChange} format='MM/dd/yyyy' />
+                                            </InputContainer>
+                                            <InputContainer>
+                                                <InputLabel>Data Final</InputLabel>
+                                                <Input type='date' placeholder='Final Date' name='final_date' value={final_date} change={this.handleChange} format='MM/dd/yyyy' />
+                                            </InputContainer>
+                                            <InputContainer>
+                                                <InputLabel>Usuários</InputLabel>
+                                                <Select
+                                                    name='user'
+                                                    value={user}
+                                                    onChange={this.handleChange}>
+                                                    <option value=''>Usuário</option>
+                                                    {
+                                                        users.map(user => <option key={user.id} value={user.id}>{user.name}</option>)
+                                                    }
+                                                </Select>
+                                            </InputContainer>
+                                            <InputContainer>
+                                                <InputLabel>Intérpretes</InputLabel>
+                                                <Select
+                                                    name='interpreter'
+                                                    value={interpreter}
+                                                    onChange={this.handleChange}>
+                                                    <option value=''>Interpreter</option>
+                                                    {
+                                                        interpreters.map(interpreter => <option key={interpreter.id} value={interpreter.id}>{interpreter.name}</option>)
+                                                    }
+                                                </Select>
+                                            </InputContainer>
+                                            <ButtonRounded type='button' title='filtrar' click={this.handleGetFilter} />
+                                        </CardContainer>
+                                        <CardContainer>
+                                            <Row>
+                                                <RedLabel>Total de registros: {calls.length}</RedLabel>
+                                                <BlueLabel>Custo total das ligações: {this.currencyFormatter(calls.reduce((a, b) => { return a + (b.duration / 60) * 50; }, 0) / 2)}</BlueLabel>
+                                                <GreenLabel>Custo total intérprete a receber: {this.currencyFormatter(calls.reduce((a, b) => { return a + ((b.duration / 60) * 50) * 0.8979; }, 0) / 2)}</GreenLabel>
+                                            </Row>
+                                        </CardContainer>
+                                        <CardContainer>
+                                            <DataTable
+                                                noHeader={true}
+                                                columns={columns}
+                                                data={calls}
+                                                paginationRowsPerPageOptions={[10, 25, 50, 100]}
+                                                paginationPerPage={10}
+                                                pagination={true}
+                                                noDataComponent={''}
+                                                customStyles={customStyles}
+                                                style={{}} />
+                                        </CardContainer>
+                                    </div>
+                        }
                     </Content>
                 </Container>
             )
