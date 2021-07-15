@@ -14,6 +14,11 @@ import { Plus } from '@styled-icons/boxicons-regular/Plus'
 import { Close } from '@styled-icons/evaicons-solid/Close'
 import { Pencil } from '@styled-icons/octicons/Pencil'
 import { Trash } from '@styled-icons/bootstrap/Trash'
+import { CircleFill } from '@styled-icons/bootstrap/CircleFill'
+import firebase from 'firebase/app'
+import 'firebase/database'
+
+var database = firebase.database();
 
 const override = css`
     display: block;
@@ -74,6 +79,18 @@ const TrashIcon = styled(Trash)`
     color: #C1272D;
     height: 20px;
     width: 20px;
+`;
+
+const CircleFillIconGreen = styled(CircleFill)`
+    color: green;
+    height: 10px;
+    width: 10px;
+`;
+
+const CircleFillIconGrey = styled(CircleFill)`
+    color: grey;
+    height: 10px;
+    width: 10px;
 `;
 
 const PlusIcon = styled(Plus)`
@@ -196,11 +213,24 @@ export default class UsersScreen extends React.Component {
             usersAux: [],
             error: false,
             search: '',
+            onlineUsers: [],
         }
     }
 
     componentDidMount() {
         this.setState({ loading: true });
+
+        database
+            .ref('/onlineUsers')
+            .on('value', snapshot => {
+                console.log('User data: ', snapshot.val());
+                if (snapshot.val() != null) {
+                    this.setState({ onlineUsers: snapshot.val() });
+                } else {
+                    this.setState({ onlineUsers: 0 });
+                }
+            });
+
         this.handleGet();
     }
 
@@ -347,9 +377,15 @@ export default class UsersScreen extends React.Component {
     }
 
     render() {
-        const { users, name, email, phone, password, create, search, loading, redirect, error } = this.state;
+        const { onlineUsers, users, name, email, phone, password, create, search, loading, redirect, error } = this.state;
 
         const columns = ([
+            {
+                width: '30px',
+                selector: 'online',
+                cell: row => onlineUsers[row.id.toString()] == true ? <CircleFillIconGreen /> : <CircleFillIconGrey />,
+                center: true,
+            },
             {
                 name: 'Nome',
                 selector: 'name',

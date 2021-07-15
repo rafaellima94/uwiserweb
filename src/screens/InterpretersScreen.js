@@ -16,6 +16,11 @@ import { Pencil } from '@styled-icons/octicons/Pencil'
 import { Trash } from '@styled-icons/bootstrap/Trash'
 import { CheckShield } from '@styled-icons/boxicons-regular/CheckShield'
 import { ShieldX } from '@styled-icons/boxicons-regular/ShieldX'
+import { CircleFill } from '@styled-icons/bootstrap/CircleFill'
+import firebase from 'firebase/app'
+import 'firebase/database'
+
+var database = firebase.database();
 
 const override = css`
     display: block;
@@ -69,6 +74,18 @@ const PencilIcon = styled(Pencil)`
     color: #1C4370;
     height: 20px;
     width: 20px;
+`;
+
+const CircleFillIconGreen = styled(CircleFill)`
+    color: green;
+    height: 10px;
+    width: 10px;
+`;
+
+const CircleFillIconGrey = styled(CircleFill)`
+    color: grey;
+    height: 10px;
+    width: 10px;
 `;
 
 const TrashIcon = styled(Trash)`
@@ -247,11 +264,24 @@ export default class InterpretersScreen extends React.Component {
             interpretersAux: [],
             error: false,
             search: '',
+            onlineInterpreters: [],
         }
     }
 
     componentDidMount() {
         this.setState({ loading: true });
+        
+        database
+            .ref('/onlineInterpreters')
+            .on('value', snapshot => {
+                console.log('User data: ', snapshot.val());
+                if (snapshot.val() != null) {
+                    this.setState({ onlineUsers: snapshot.val() });
+                } else {
+                    this.setState({ onlineUsers: 0 });
+                }
+            });
+
         this.handleGet();
     }
 
@@ -460,9 +490,15 @@ export default class InterpretersScreen extends React.Component {
     }
 
     render() {
-        const { interpreters, name, email, cpf, age, city, country, specialty, description, languages, phone, emailPaypal, password, enabled, disabledEnabled, create, search, loading, redirect, error } = this.state;
+        const { onlineInterpreters, interpreters, name, email, cpf, age, city, country, specialty, description, languages, phone, emailPaypal, password, enabled, disabledEnabled, create, search, loading, redirect, error } = this.state;
 
         const columns = ([
+            {
+                width: '30px',
+                selector: 'online',
+                cell: row => onlineInterpreters[row.id.toString()] == true ? <CircleFillIconGreen /> : <CircleFillIconGrey />,
+                center: true,
+            },
             {
                 name: 'Nome',
                 selector: 'name',
