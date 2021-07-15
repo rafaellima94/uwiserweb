@@ -277,9 +277,9 @@ export default class InterpretersScreen extends React.Component {
             .on('value', snapshot => {
                 console.log('User data: ', snapshot.val());
                 if (snapshot.val() != null) {
-                    this.setState({ onlineUsers: snapshot.val() });
+                    this.setState({ onlineInterpreters: snapshot.val() });
                 } else {
-                    this.setState({ onlineUsers: 0 });
+                    this.setState({ onlineInterpreters: 0 });
                 }
             });
 
