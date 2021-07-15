@@ -115,7 +115,10 @@ export default class DashboardScreen extends React.Component {
         database
             .ref('/onlineUsers')
             .on('value', snapshot => {
+                console.log('User data: ', snapshot.val());
+                console.log(snapshot.val() != null);
                 if (snapshot.val() != null) {
+                    //const list = Object.keys(data);
                     this.setState({ onlineUsers: Object.keys(snapshot.val()).length });
                 } else {
                     this.setState({ onlineUsers: 0 });
@@ -125,7 +128,10 @@ export default class DashboardScreen extends React.Component {
         database
             .ref('/onlineInterpreters')
             .on('value', snapshot => {
+                console.log('User data: ', snapshot.val());
+                console.log(snapshot.val() != null);
                 if (snapshot.val() != null) {
+                    //const list = Object.keys(data);
                     this.setState({ onlineInterpreters: Object.keys(snapshot.val()).length });
                 } else {
                     this.setState({ onlineInterpreters: 0 });

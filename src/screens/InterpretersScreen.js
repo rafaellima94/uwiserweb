@@ -77,13 +77,14 @@ const PencilIcon = styled(Pencil)`
 `;
 
 const CircleFillIconGreen = styled(CircleFill)`
-    color: green;
+    color: #118504;
     height: 10px;
     width: 10px;
 `;
 
 const CircleFillIconGrey = styled(CircleFill)`
-    color: grey;
+    color: #000;
+    opacity: 0.2;
     height: 10px;
     width: 10px;
 `;
