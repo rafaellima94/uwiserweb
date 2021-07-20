@@ -311,7 +311,7 @@ export default class UsersScreen extends React.Component {
     }
 
     handleDelete = () => {
-        axios.delete(`${process.env.REACT_APP_API_URL}/users?id=${this.state.id}`,
+        axios.delete(`${process.env.REACT_APP_API_URL}/users/remove?id=${this.state.id}`,
             {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('TOKEN_UWISER')

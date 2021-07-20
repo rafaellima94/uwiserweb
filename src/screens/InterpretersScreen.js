@@ -332,6 +332,7 @@ export default class InterpretersScreen extends React.Component {
                 password: this.state.password,
                 email_paypal: this.state.emailPaypal,
                 user_type_id: 2,
+                enabled: 0,
             }
         ).then((res) => {
             this.handleGet();
@@ -374,7 +375,7 @@ export default class InterpretersScreen extends React.Component {
     }
 
     handleDelete = () => {
-        axios.delete(`${process.env.REACT_APP_API_URL}/users?id=${this.state.id}`,
+        axios.delete(`${process.env.REACT_APP_API_URL}/users/remove?id=${this.state.id}`,
             {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('TOKEN_UWISER')
