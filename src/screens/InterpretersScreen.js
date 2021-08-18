@@ -263,6 +263,7 @@ export default class InterpretersScreen extends React.Component {
             password: '',
             interpreters: [],
             interpretersAux: [],
+            language_app: '',
             error: false,
             search: '',
             onlineInterpreters: [],
@@ -271,7 +272,7 @@ export default class InterpretersScreen extends React.Component {
 
     componentDidMount() {
         this.setState({ loading: true });
-        
+
         database
             .ref('/onlineInterpreters')
             .on('value', snapshot => {
@@ -326,6 +327,7 @@ export default class InterpretersScreen extends React.Component {
                 city: this.state.city,
                 country: this.state.country,
                 specialty: this.state.specialty,
+                language_app: this.state.language_app,
                 description: this.state.description,
                 languages: this.state.languages,
                 phone: this.state.phone,
@@ -354,6 +356,7 @@ export default class InterpretersScreen extends React.Component {
                 city: this.state.city,
                 country: this.state.country,
                 specialty: this.state.specialty,
+                language_app: this.state.language_app,
                 description: this.state.description,
                 languages: this.state.languages,
                 phone: this.state.phone,
@@ -384,6 +387,11 @@ export default class InterpretersScreen extends React.Component {
                 this.handleGet();
                 this.setState({ loading: false });
                 this.handleCloseConfirmationModal();
+
+                // database
+                //     .ref(`/onlineInterpreters/${this.state.id}`)
+                //     .remove()
+                //     .then(() => console.log('On disconnect function configured.'));
             }).catch(err => {
                 this.setState({ loading: false });
                 this.handleCloseConfirmationModal();
@@ -428,6 +436,7 @@ export default class InterpretersScreen extends React.Component {
                 city: row.city,
                 country: row.country,
                 specialty: row.specialty,
+                language_app: row.language_app,
                 description: row.description,
                 emailPaypal: row.email_paypal,
                 password: '',
@@ -445,6 +454,7 @@ export default class InterpretersScreen extends React.Component {
                 city: '',
                 country: '',
                 specialty: '',
+                language_app: '',
                 description: '',
                 emailPaypal: '',
                 password: '',
@@ -492,7 +502,7 @@ export default class InterpretersScreen extends React.Component {
     }
 
     render() {
-        const { onlineInterpreters, interpreters, name, email, cpf, age, city, country, specialty, description, languages, phone, emailPaypal, password, enabled, disabledEnabled, create, search, loading, redirect, error } = this.state;
+        const { onlineInterpreters, interpreters, name, email, cpf, age, city, country, specialty, language_app, description, languages, phone, emailPaypal, password, enabled, disabledEnabled, create, search, loading, redirect, error } = this.state;
 
         const columns = ([
             {
@@ -621,6 +631,17 @@ export default class InterpretersScreen extends React.Component {
                                 <option value='health'>Saúde</option>
                                 <option value='technology'>Tecnologia</option>
                                 <option value='tourism'>Turismo</option>
+                            </Select>
+                            <Select
+                                name='language_app'
+                                value={language_app}
+                                onChange={this.handleChange}>
+                                <option value=''>Idioma</option>
+                                <option value='pt'>Português</option>
+                                <option value='en'>Inglês</option>
+                                <option value='es'>Espanhol</option>
+                                <option value='fr'>Francês</option>
+                                <option value='jp'>Japonês</option>
                             </Select>
                             <Input type='text' placeholder='Descrição' name='description' value={description} change={this.handleChange} required='required' />
                             <Input type='text' placeholder='Idiomas' name='languages' value={languages} change={this.handleChange} required='required' />
