@@ -641,7 +641,7 @@ export default class InterpretersScreen extends React.Component {
                                 <option value='en'>Inglês</option>
                                 <option value='es'>Espanhol</option>
                                 <option value='fr'>Francês</option>
-                                <option value='jp'>Japonês</option>
+                                <option value='ja'>Japonês</option>
                             </Select>
                             <Input type='text' placeholder='Descrição' name='description' value={description} change={this.handleChange} required='required' />
                             <Input type='text' placeholder='Idiomas' name='languages' value={languages} change={this.handleChange} required='required' />
