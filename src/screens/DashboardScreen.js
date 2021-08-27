@@ -107,6 +107,7 @@ export default class DashboardScreen extends React.Component {
             redirect: localStorage.getItem('TOKEN_UWISER') == null,
             onlineUsers: 0,
             onlineInterpreters: 0,
+            busyInterpreters: 0,
             calls: [],
         }
     }
@@ -116,9 +117,7 @@ export default class DashboardScreen extends React.Component {
             .ref('/onlineUsers')
             .on('value', snapshot => {
                 console.log('User data: ', snapshot.val());
-                console.log(snapshot.val() != null);
                 if (snapshot.val() != null) {
-                    //const list = Object.keys(data);
                     this.setState({ onlineUsers: Object.keys(snapshot.val()).length });
                 } else {
                     this.setState({ onlineUsers: 0 });
@@ -129,12 +128,21 @@ export default class DashboardScreen extends React.Component {
             .ref('/onlineInterpreters')
             .on('value', snapshot => {
                 console.log('User data: ', snapshot.val());
-                console.log(snapshot.val() != null);
                 if (snapshot.val() != null) {
-                    //const list = Object.keys(data);
                     this.setState({ onlineInterpreters: Object.keys(snapshot.val()).length });
                 } else {
                     this.setState({ onlineInterpreters: 0 });
+                }
+            });
+
+        database
+            .ref('/busy')
+            .on('value', snapshot => {
+                console.log('User data: ', snapshot.val());
+                if (snapshot.val() != null) {
+                    this.setState({ busyInterpreters: Object.keys(snapshot.val()).length });
+                } else {
+                    this.setState({ busyInterpreters: 0 });
                 }
             });
 
@@ -168,7 +176,7 @@ export default class DashboardScreen extends React.Component {
     }
 
     render() {
-        const { onlineUsers, onlineInterpreters, calls, redirect } = this.state;
+        const { onlineUsers, onlineInterpreters, busyInterpreters, calls, redirect } = this.state;
 
         if (redirect) {
             return <Redirect to="/" />
@@ -195,7 +203,7 @@ export default class DashboardScreen extends React.Component {
                             <Row>
                                 <InfoCardContainer interpreters_busy>
                                     <Icon src={Busy} />
-                                    <InfoCardText>0</InfoCardText>
+                                    <InfoCardText>{busyInterpreters}</InfoCardText>
                                     <InfoCardLabel>INTÉRPRETES OCUPADOS</InfoCardLabel>
                                 </InfoCardContainer>
                                 <InfoCardContainer>
