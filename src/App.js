@@ -6,6 +6,7 @@ import CallsScreen from './screens/CallsScreen'
 import InterpretersScreen from './screens/InterpretersScreen'
 import UsersScreen from './screens/UsersScreen'
 import AdminsScreen from './screens/AdminsScreen'
+import EnabledScreen from './screens/EnabledScreen'
 import './App.css'
 
 const routes = [
@@ -32,6 +33,10 @@ const routes = [
   {
     path: '/Admins',
     component: AdminsScreen
+  },
+  {
+    path: '/Enabled/:id',
+    component: EnabledScreen
   },
 ];
 
