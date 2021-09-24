@@ -334,6 +334,7 @@ export default class UsersScreen extends React.Component {
                 name: row.name,
                 email: row.email,
                 phone: row.phone,
+                error: false,
                 create: false,
             })
         } else {
@@ -342,6 +343,7 @@ export default class UsersScreen extends React.Component {
                 name: '',
                 email: '',
                 phone: '',
+                error: false,
                 create: true,
             })
         }
