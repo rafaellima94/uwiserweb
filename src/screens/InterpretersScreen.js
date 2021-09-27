@@ -441,6 +441,7 @@ export default class InterpretersScreen extends React.Component {
                 emailPaypal: row.email_paypal,
                 password: '',
                 create: false,
+                error: false,
             })
         } else {
             this.setState({
@@ -459,6 +460,7 @@ export default class InterpretersScreen extends React.Component {
                 emailPaypal: '',
                 password: '',
                 create: true,
+                error: false,
             })
         }
     }
