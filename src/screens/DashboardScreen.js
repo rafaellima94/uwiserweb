@@ -151,7 +151,7 @@ export default class DashboardScreen extends React.Component {
 
     handleGetCalls = () => {
         this.setState({ loading: true });
-        var URL = `${process.env.REACT_APP_API_URL}/calls/all`;
+        var URL = `${process.env.REACT_APP_API_URL}/BalanceHistory/all`;
 
         axios.get(URL,
             {
@@ -163,7 +163,7 @@ export default class DashboardScreen extends React.Component {
                 var callsAux = res.data;
 
                 callsAux = callsAux.filter(call => {
-                    let callDate = new Date(call.startTime);
+                    let callDate = new Date(call.created);
                     let todayDate = new Date();
                     return callDate.toLocaleDateString() == todayDate.toLocaleDateString();
                 });

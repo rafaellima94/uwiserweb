@@ -175,7 +175,7 @@ export default class CallsScreen extends React.Component {
 
     handleGetCalls = () => {
         this.setState({ loading: true });
-        var URL = `${process.env.REACT_APP_API_URL}/calls/all`;
+        var URL = `${process.env.REACT_APP_API_URL}/BalanceHistory/all`;
 
         axios.get(URL,
             {
@@ -289,25 +289,25 @@ export default class CallsScreen extends React.Component {
             {
                 name: 'Data',
                 selector: 'date',
-                format: row => this.dateFormatter(row.startTime)
+                format: row => this.dateFormatter(row.created)
             },
             {
                 name: 'Hora',
                 selector: 'name',
-                format: row => this.timeFormatter(row.startTime)
+                format: row => this.timeFormatter(row.created)
             },
             {
                 name: 'Duração',
                 selector: 'duration',
-                format: row => this.durationFormatter(row.duration)
+                format: row => this.durationFormatter(row.seconds)
             },
             {
                 name: 'Usuário',
-                selector: 'displayName',
+                selector: 'user_name',
             },
             {
                 name: 'Interprete',
-                selector: 'otherDisplayName',
+                selector: 'interpreter_name',
             },
             {
                 name: 'Preço Minuto',
@@ -315,11 +315,11 @@ export default class CallsScreen extends React.Component {
             },
             {
                 name: 'Preço Total',
-                cell: row => this.currencyFormatter((row.duration / 60) * 50),
+                cell: row => this.currencyFormatter((row.seconds / 60) * 50),
             },
             {
                 name: 'Intéprete Receberá',
-                cell: row => this.currencyFormatter((row.duration / 60) * 50 * 0.8979),
+                cell: row => this.currencyFormatter((row.seconds / 60) * 50 * 0.8979),
             },
             {
                 width: '100px',
