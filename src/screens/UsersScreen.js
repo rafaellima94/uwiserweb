@@ -209,6 +209,7 @@ export default class UsersScreen extends React.Component {
             name: '',
             email: '',
             phone: '',
+            password: '',
             users: [],
             usersAux: [],
             error: false,
@@ -270,7 +271,9 @@ export default class UsersScreen extends React.Component {
                 name: this.state.name,
                 email: this.state.email,
                 phone: this.state.phone,
+                password: this.state.password,
                 user_type_id: 1,
+                enabled: 0,
             }
         ).then((res) => {
             console.log(res)
@@ -334,6 +337,7 @@ export default class UsersScreen extends React.Component {
                 name: row.name,
                 email: row.email,
                 phone: row.phone,
+                password: '',
                 error: false,
                 create: false,
             })
@@ -343,6 +347,7 @@ export default class UsersScreen extends React.Component {
                 name: '',
                 email: '',
                 phone: '',
+                password: '',
                 error: false,
                 create: true,
             })
@@ -375,7 +380,7 @@ export default class UsersScreen extends React.Component {
     }
 
     render() {
-        const { onlineUsers, users, name, email, phone, create, search, loading, redirect, error } = this.state;
+        const { onlineUsers, users, name, email, phone, password, create, search, loading, redirect, error } = this.state;
 
         const columns = ([
             {
@@ -463,6 +468,7 @@ export default class UsersScreen extends React.Component {
                             <Input type='text' placeholder='Nome' name='name' value={name} change={this.handleChange} required='required' />
                             <Input type='email' placeholder='E-mail' name='email' value={email} change={this.handleChange} required='required' />
                             <Input type='text' placeholder='Telefone' name='phone' value={phone} change={this.handleChange} required='required' />
+                            {create && <Input type='password' placeholder='Senha' name='password' value={password} change={this.handleChange} required='required' />}
                             {error && <Error>E-mail já cadastrado.</Error>}
                             <PasswordInfo>* Senha será enviada por e-mail</PasswordInfo>
                             <ButtonRounded title='salvar' click={this.handleRequest} />
