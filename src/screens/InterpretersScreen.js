@@ -259,7 +259,7 @@ export default class InterpretersScreen extends React.Component {
             country: '',
             specialty: '',
             description: '',
-            emailPaypal: '',
+            email_paypal: '',
             password: '',
             interpreters: [],
             interpretersAux: [],
@@ -332,7 +332,7 @@ export default class InterpretersScreen extends React.Component {
                 languages: this.state.languages,
                 phone: this.state.phone,
                 password: this.state.password,
-                email_paypal: this.state.emailPaypal,
+                email_paypal: this.state.email_paypal,
                 user_type_id: 2,
                 enabled: 0,
             }
@@ -361,7 +361,7 @@ export default class InterpretersScreen extends React.Component {
                 languages: this.state.languages,
                 phone: this.state.phone,
                 password: this.state.password,
-                email_paypal: this.state.emailPaypal,
+                email_paypal: this.state.email_paypal,
                 user_type_id: 2,
             },
             {
@@ -438,7 +438,7 @@ export default class InterpretersScreen extends React.Component {
                 specialty: row.specialty,
                 language_app: row.language_app,
                 description: row.description,
-                emailPaypal: row.email_paypal,
+                email_paypal: row.email_paypal,
                 password: '',
                 create: false,
                 error: false,
@@ -457,7 +457,7 @@ export default class InterpretersScreen extends React.Component {
                 specialty: '',
                 language_app: '',
                 description: '',
-                emailPaypal: '',
+                email_paypal: '',
                 password: '',
                 create: true,
                 error: false,
@@ -504,7 +504,7 @@ export default class InterpretersScreen extends React.Component {
     }
 
     render() {
-        const { onlineInterpreters, interpreters, name, email, cpf, age, city, country, specialty, language_app, description, languages, phone, emailPaypal, password, enabled, disabledEnabled, create, search, loading, redirect, error } = this.state;
+        const { onlineInterpreters, interpreters, name, email, cpf, age, city, country, specialty, language_app, description, languages, phone, email_paypal, password, enabled, disabledEnabled, create, search, loading, redirect, error } = this.state;
 
         const columns = ([
             {
@@ -598,13 +598,24 @@ export default class InterpretersScreen extends React.Component {
                     <ReactModal
                         isOpen={this.state.showModal}
                         style={modalStyles}
-                        contentLabel='Create Interpreter'
+                        contentLabel='Intérprete'
                         onRequestClose={this.handleCloseModal}>
                         <ModalHeader>
-                            <ModalTitle>Create Interpreter</ModalTitle>
+                            <ModalTitle>Intérprete</ModalTitle>
                             <ButtonRounded outlined='#1C4370' title={<CloseIcon />} click={this.handleCloseModal} />
                         </ModalHeader>
                         <ModalBody>
+                            <Select
+                                name='language_app'
+                                value={language_app}
+                                onChange={this.handleChange}>
+                                <option value=''>Idioma nativo</option>
+                                <option value='pt'>Português</option>
+                                <option value='en'>Inglês</option>
+                                <option value='es'>Espanhol</option>
+                                <option value='fr'>Francês</option>
+                                <option value='ja'>Japonês</option>
+                            </Select>
                             <Input type='text' placeholder='Nome' name='name' value={name} change={this.handleChange} required='required' />
                             <Input type='email' placeholder='E-mail' name='email' value={email} change={this.handleChange} required='required' />
                             <Input type='text' placeholder='Documento' name='cpf' value={cpf} change={this.handleChange} required='required' />
@@ -634,21 +645,10 @@ export default class InterpretersScreen extends React.Component {
                                 <option value='technology'>Tecnologia</option>
                                 <option value='tourism'>Turismo</option>
                             </Select>
-                            <Select
-                                name='language_app'
-                                value={language_app}
-                                onChange={this.handleChange}>
-                                <option value=''>Idioma</option>
-                                <option value='pt'>Português</option>
-                                <option value='en'>Inglês</option>
-                                <option value='es'>Espanhol</option>
-                                <option value='fr'>Francês</option>
-                                <option value='ja'>Japonês</option>
-                            </Select>
                             <Input type='text' placeholder='Descrição' name='description' value={description} change={this.handleChange} required='required' />
                             <Input type='text' placeholder='Idiomas' name='languages' value={languages} change={this.handleChange} required='required' />
                             <Input type='text' placeholder='Telefone' name='phone' value={phone} change={this.handleChange} required='required' />
-                            <Input type='email' placeholder='E-mail Paypal' name='email_paypal' value={emailPaypal} change={this.handleChange} required='required' />
+                            <Input type='email' placeholder='E-mail Paypal' name='email_paypal' value={email_paypal} change={this.handleChange} required='required' />
                             {create && <Input type='password' placeholder='Senha' name='password' value={password} change={this.handleChange} required='required' />}
                             {error && <Error>E-mail já cadastrado.</Error>}
                             <PasswordInfo>* Senha será enviada por e-mail</PasswordInfo>
