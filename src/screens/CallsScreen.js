@@ -390,8 +390,8 @@ export default class CallsScreen extends React.Component {
                                         <CardContainer>
                                             <Row>
                                                 <RedLabel>Total de registros: {calls.length}</RedLabel>
-                                                <BlueLabel>Custo total das ligações: {this.currencyFormatter(interpreters.reduce((a, b) => { return a + (b.balance / 60) * 55; }, 0))}</BlueLabel>
-                                                <GreenLabel>Custo total intérprete a receber: {this.currencyFormatter(interpreters.reduce((a, b) => { return a + ((b.balance / 60) * 45) * 0.6; }, 0))}</GreenLabel>
+                                                <BlueLabel>Custo total das ligações: {this.currencyFormatter(interpreters.reduce((a, b) => { return a + (b.balance / 60) * 50; }, 0))}</BlueLabel>
+                                                <GreenLabel>Custo total intérprete a receber: {this.currencyFormatter(interpreters.reduce((a, b) => { return a + ((b.balance / 60) * 50) * 0.6 * 0.8979; }, 0))}</GreenLabel>
                                             </Row>
                                         </CardContainer>
                                         <CardContainer>
