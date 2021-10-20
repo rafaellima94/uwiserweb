@@ -319,7 +319,7 @@ export default class CallsScreen extends React.Component {
             },
             {
                 name: 'Intéprete Receberá',
-                cell: row => this.currencyFormatter((row.seconds / 60) * 50 * 0.8979),
+                cell: row => this.currencyFormatter((row.seconds / 60) * 50 * 0.6 * 0.8979),
             },
             {
                 width: '100px',
