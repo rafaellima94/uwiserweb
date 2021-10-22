@@ -254,7 +254,6 @@ export default class InterpretersScreen extends React.Component {
             cpf: '',
             phone: '',
             age: '',
-            languages: '',
             city: '',
             country: '',
             specialty: '',
@@ -329,7 +328,6 @@ export default class InterpretersScreen extends React.Component {
                 specialty: this.state.specialty,
                 language_app: this.state.language_app,
                 description: this.state.description,
-                languages: this.state.languages,
                 phone: this.state.phone,
                 password: this.state.password,
                 email_paypal: this.state.email_paypal,
@@ -358,7 +356,6 @@ export default class InterpretersScreen extends React.Component {
                 specialty: this.state.specialty,
                 language_app: this.state.language_app,
                 description: this.state.description,
-                languages: this.state.languages,
                 phone: this.state.phone,
                 password: this.state.password,
                 email_paypal: this.state.email_paypal,
@@ -432,7 +429,6 @@ export default class InterpretersScreen extends React.Component {
                 cpf: row.cpf,
                 phone: row.phone,
                 age: birthday.toISOString().substr(0, 10),
-                languages: row.languages,
                 city: row.city,
                 country: row.country,
                 specialty: row.specialty,
@@ -451,7 +447,6 @@ export default class InterpretersScreen extends React.Component {
                 cpf: '',
                 phone: '',
                 age: '',
-                languages: '',
                 city: '',
                 country: '',
                 specialty: '',
@@ -504,7 +499,7 @@ export default class InterpretersScreen extends React.Component {
     }
 
     render() {
-        const { onlineInterpreters, interpreters, name, email, cpf, age, city, country, specialty, language_app, description, languages, phone, email_paypal, password, enabled, disabledEnabled, create, search, loading, redirect, error } = this.state;
+        const { onlineInterpreters, interpreters, name, email, cpf, age, city, country, specialty, language_app, description, phone, email_paypal, password, enabled, disabledEnabled, create, search, loading, redirect, error } = this.state;
 
         const columns = ([
             {
@@ -646,7 +641,6 @@ export default class InterpretersScreen extends React.Component {
                                 <option value='tourism'>Turismo</option>
                             </Select>
                             <Input type='text' placeholder='Descrição' name='description' value={description} change={this.handleChange} required='required' />
-                            <Input type='text' placeholder='Idiomas' name='languages' value={languages} change={this.handleChange} required='required' />
                             <Input type='text' placeholder='Telefone' name='phone' value={phone} change={this.handleChange} required='required' />
                             <Input type='email' placeholder='E-mail Paypal' name='email_paypal' value={email_paypal} change={this.handleChange} required='required' />
                             {create && <Input type='password' placeholder='Senha' name='password' value={password} change={this.handleChange} required='required' />}
