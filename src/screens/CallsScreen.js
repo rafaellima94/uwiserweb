@@ -306,8 +306,16 @@ export default class CallsScreen extends React.Component {
                 selector: 'user_name',
             },
             {
+                name: 'Usuário vox',
+                cell: row => users.find(u => u.id == row.user_id)?.usernamevox,
+            },
+            {
                 name: 'Interprete',
                 selector: 'interpreter_name',
+            },
+            {
+                name: 'Interprete vox',
+                cell: row => interpreters.find(i => i.id == row.interpreter_id)?.usernamevox,
             },
             {
                 name: 'Preço Minuto',
@@ -320,14 +328,6 @@ export default class CallsScreen extends React.Component {
             {
                 name: 'Intéprete Receberá',
                 cell: row => this.currencyFormatter((row.seconds / 60) * 50 * 0.6 * 0.8979),
-            },
-            {
-                width: '100px',
-                name: 'Gravações',
-                cell: row => <img src={playOff} style={{ width: '40px', height: '40px', }} />,
-                ignoreRowClick: true,
-                allowOverflow: true,
-                button: true,
             },
         ]);
 
