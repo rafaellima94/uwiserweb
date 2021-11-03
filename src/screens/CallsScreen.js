@@ -271,6 +271,7 @@ export default class CallsScreen extends React.Component {
 
     timeFormatter = (date) => {
         let format = new Date(date);
+        format.setHours(format.getHours() - 2);
         return format.toLocaleTimeString();
     }
 
